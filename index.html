@@ -29,7 +29,7 @@ body{background:#f5f6f8;color:#222;}
     overflow:hidden;flex-shrink:0;
 }
 .logo-icon img{
-    width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;
+    width:100%;height:100%;object-fit:contain;border-radius:10px;display:block;
 }
 .logo h2{font-size:20px;}
 .logo small{color:#d9c7a5;font-size:12px;}
@@ -292,48 +292,113 @@ th{background:#fff8e7;color:#765500;}
 #printArea{display:none;}
 
 @media print{
-    @page{size:A4 portrait;margin:12mm;}
+    /* ===== A4 Page Setup ===== */
+    @page{size:A4 portrait;margin:10mm 10mm 10mm 10mm;}
+    
     html,body{
         height:auto !important;overflow:visible !important;
         background:#fff !important;margin:0 !important;padding:0 !important;
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
     }
+    
     body *{visibility:hidden !important;}
     #printArea,#printArea *{visibility:visible !important;}
+    
     #printArea{
         display:block !important;position:absolute;left:0;top:0;
         width:100%;padding:0;margin:0;background:#fff;
     }
+    
+    /* ===== Admission Form (A4) ===== */
     #printArea .admission-form{
-        border:3px double #444 !important;padding:14px 16px !important;
-        font-size:12px !important;page-break-inside:avoid;
-        page-break-after:avoid;margin:0 !important;width:100% !important;
+        border:2px solid #444 !important;
+        padding:12px 14px !important;
+        font-size:11.5px !important;
+        page-break-inside:avoid;
+        margin:0 !important;
+        width:100% !important;
+        max-width:100% !important;
+        box-sizing:border-box !important;
+        background:#fff !important;
     }
+    #printArea .admission-form #formLogoBox{
+        border:1px dashed #999 !important;
+        border-radius:0 !important;
+        background:#fff !important;
+        padding:4px !important;
+        width:75px !important;
+        height:75px !important;
+    }
+    #printArea .admission-form #formLogoImg{
+        max-width:100% !important;
+        max-height:100% !important;
+        object-fit:contain !important;
+        border-radius:0 !important;
+    }
+    #printArea .admission-form .form-title{
+        font-size:18px !important;margin:8px 0 10px !important;
+    }
+    #printArea .admission-form .section-bar{
+        padding:3px !important;margin:10px 0 6px !important;font-size:11px !important;
+    }
+    #printArea .admission-form .field input,
+    #printArea .admission-form .field select{
+        font-size:11px !important;padding:2px 3px !important;
+    }
+    #printArea .admission-form .row{
+        margin-bottom:6px !important;gap:8px !important;
+    }
+    #printArea .admission-form table{font-size:10.5px !important;}
+    #printArea .admission-form table th,
+    #printArea .admission-form table td{padding:3px 4px !important;}
+    #printArea .admission-form .declare{
+        margin:10px 0 6px !important;font-size:10.5px !important;
+    }
+    #printArea .admission-form .signatures{
+        margin-top:20px !important;font-size:11px !important;
+    }
+    
+    /* ===== Money Receipt (A5) ===== */
     #printArea .receipt-preview{
-        border:3px double #333 !important;padding:12px 15px !important;
-        font-size:11px !important;page-break-inside:avoid;
-        margin:0 auto !important;width:100% !important;max-width:148mm !important;
+        border:2px solid #333 !important;
+        padding:10px 14px !important;
+        font-size:11px !important;
+        page-break-inside:avoid;
+        margin:0 !important;width:100% !important;max-width:100% !important;
+        box-sizing:border-box !important;
     }
+    #printArea .receipt-preview .rc-logo{
+        max-width:60px !important;max-height:60px !important;
+        object-fit:contain !important;border-radius:0 !important;
+    }
+    
+    /* ===== Certificate ===== */
     #printArea .certificate-preview{
-        border:6px solid #d4a017 !important;padding:25px 20px !important;
-        page-break-inside:avoid;width:100% !important;
-        max-width:190mm !important;margin:0 auto !important;
+        border:5px solid #d4a017 !important;
+        padding:20px 18px !important;
+        page-break-inside:avoid;
+        width:100% !important;max-width:100% !important;
+        margin:0 !important;box-sizing:border-box !important;
     }
+    #printArea .certificate-preview .cp-logo{
+        max-width:70px !important;max-height:70px !important;
+        object-fit:contain !important;border-radius:0 !important;
+    }
+    
+    /* ===== Reports ===== */
     #printArea .report-header{
-        text-align:center;padding-bottom:12px;margin-bottom:15px;
+        text-align:center;padding-bottom:10px;margin-bottom:12px;
         border-bottom:2px solid #b8860b;
     }
-    #printArea .report-header h2{font-size:19px;color:#24150c;margin-bottom:4px;}
-    #printArea .report-header .rh-title{font-size:16px;color:#6a1b9a;font-weight:bold;text-decoration:underline;}
-    #printArea .rep-table{width:100%;border-collapse:collapse;margin-top:12px;}
+    #printArea .report-header h2{font-size:17px;color:#24150c;margin-bottom:3px;}
+    #printArea .report-header .rh-title{font-size:14px;color:#6a1b9a;font-weight:bold;text-decoration:underline;}
+    #printArea .rep-table{width:100%;border-collapse:collapse;margin-top:10px;table-layout:fixed;}
     #printArea .rep-table th,
-    #printArea .rep-table td{border:1px solid #666;padding:7px 6px;font-size:11px;}
+    #printArea .rep-table td{border:1px solid #666;padding:5px 4px;font-size:10px;word-wrap:break-word;}
     #printArea .rep-table th{background:#fef7e0;color:#5a4200;font-weight:700;text-align:center;}
     #printArea .print-footer{
-        margin-top:30px;display:flex;justify-content:space-between;font-size:10.5px;
-    }
-    #printArea .print-footer .sig{text-align:center;width:160px;}
-    #printArea .print-footer .sig .line{
-        border-top:1px solid #333;margin-bottom:4px;padding-top:22px;
+        margin-top:25px;display:flex;justify-content:space-between;font-size:10px;
     }
     #printArea > *:last-child{margin-bottom:0 !important;padding-bottom:0 !important;}
     .no-print{display:none !important;}
@@ -362,7 +427,6 @@ th{background:#fff8e7;color:#765500;}
     .form-actions .btn{width:100%;}
     .page-title-actions{width:100%;}
     .page-title-actions .btn{flex:1;min-width:auto;}
-    .filter-bar .filter-item{flex:1 1 100%;}
     .report-card .rc-body{grid-template-columns:1fr;}
 }
 </style>
@@ -450,14 +514,14 @@ th{background:#fff8e7;color:#765500;}
         <p id="dashCertsBreakdown">0 total certificates</p>
     </div>
 </div>
-<div class="dashboard-grid" style="display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:20px;">
-    <div class="box" style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:20px;">
+    <div style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
         <h3 style="margin-bottom:15px;">💵 Recent Payments</h3>
         <div id="dashRecentPayments">
             <div class="empty-state"><div class="empty-icon">💵</div><p>No payments yet</p></div>
         </div>
     </div>
-    <div class="box" style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
+    <div style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
         <h3 style="margin-bottom:15px;">🏆 Certificate Status</h3>
         <div id="dashCertSummary">
             <div class="empty-state"><div class="empty-icon">🏆</div><p>No certificates yet</p></div>
@@ -1090,7 +1154,7 @@ th{background:#fff8e7;color:#765500;}
 <div class="page-title">
     <div><h1>💾 Backup & Restore</h1><p>Protect your training center data</p></div>
 </div>
-<div class="box" style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
+<div style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
     <h3 style="margin-bottom:15px;">Database Backup</h3>
     <p style="margin:10px 0;color:#777;">আপনার Students, Courses, Batches, Team Members, Attendance, Payments, Certificates সহ সকল তথ্য Backup করতে পারবেন।</p>
     <br>
@@ -1106,7 +1170,7 @@ th{background:#fff8e7;color:#765500;}
 <div class="page-title">
     <div><h1>⚙️ Settings</h1><p>Application settings</p></div>
 </div>
-<div class="box" style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
+<div style="background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);">
     <h3 style="margin-bottom:15px;">Training Center Information</h3>
     <br>
     <div class="form-grid">
@@ -1137,7 +1201,6 @@ th{background:#fff8e7;color:#765500;}
 /* ============== DEFAULT LOGO URL (GitHub) ============== */
 const DEFAULT_LOGO_URL = "https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png";
 
-/* Helper: কোন লোগো URL ব্যবহার হবে */
 function getLogoURL(){
     try{
         const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
@@ -1557,80 +1620,80 @@ function getBatchDropdownHTML(sel){
 }
 function getAdmissionFormHTML(){
     return `
-        <form class="admission-form" id="admissionForm" onsubmit="event.preventDefault();" style="border:3px double #444;padding:20px;background:#fff;font-size:13px;">
-            <div style="display:flex;align-items:flex-start;gap:15px;border-bottom:2px solid #b8860b;padding-bottom:12px;margin-bottom:15px;">
-                <div id="formLogoBox" style="width:90px;height:90px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;border-radius:8px;background:#fafafa;color:#b0b0b0;font-size:11px;text-align:center;line-height:1.3;padding:4px;overflow:hidden;">
+        <form class="admission-form" id="admissionForm" onsubmit="event.preventDefault();" style="border:2px solid #444;padding:14px 16px;background:#fff;font-size:12px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;border-bottom:2px solid #b8860b;padding-bottom:10px;margin-bottom:12px;">
+                <div id="formLogoBox" style="width:80px;height:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;background:#fafafa;color:#b0b0b0;font-size:11px;text-align:center;line-height:1.3;padding:4px;overflow:hidden;">
                     <img id="formLogoImg" src="${getLogoURL()}" style="max-width:100%;max-height:100%;object-fit:contain;display:block;" onerror="this.style.display='none';document.getElementById('formLogoPlaceholder').style.display='block';">
                     <span id="formLogoPlaceholder" style="display:none;">লোগো<br>এখানে</span>
                 </div>
                 <div style="flex:1;text-align:center;">
-                    <h2 style="font-size:20px;color:#24150c;margin-bottom:4px;">Bondhusoft IT Computer Training Center</h2>
-                    <h3 style="font-size:18px;color:#c2185b;margin-bottom:6px;">বন্ধুসফট আই,টি কম্পিউটার ট্রেনিং সেন্টার</h3>
-                    <p style="font-size:12px;color:#444;line-height:1.5;">গ্রামীণ ব্যাংক রোড, শোহাগী বাজার, ঈশ্বরগঞ্জ, ময়মনসিংহ।</p>
-                    <p style="font-size:12px;color:#444;line-height:1.5;">মোবাইল: ০১৯৮১৪-৪৪৬৯৯৬, ০১৬২৮-২৫৫৬৭২, ০১৯৩১-১৫১১৩২০</p>
+                    <h2 style="font-size:18px;color:#24150c;margin-bottom:3px;">Bondhusoft IT Computer Training Center</h2>
+                    <h3 style="font-size:16px;color:#c2185b;margin-bottom:5px;">বন্ধুসফট আই,টি কম্পিউটার ট্রেনিং সেন্টার</h3>
+                    <p style="font-size:11.5px;color:#444;line-height:1.4;">গ্রামীণ ব্যাংক রোড, শোহাগী বাজার, ঈশ্বরগঞ্জ, ময়মনসিংহ।</p>
+                    <p style="font-size:11.5px;color:#444;line-height:1.4;">মোবাইল: ০১৯৮১৪-৪৪৬৯৯৬, ০১৬২৮-২৫৫৬৭২, ০১৯৩১-১৫১১৩২০</p>
                 </div>
-                <div style="width:90px;height:110px;border:1px solid #333;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;flex-shrink:0;">ছবি</div>
+                <div style="width:80px;height:100px;border:1px solid #333;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;flex-shrink:0;">ছবি</div>
             </div>
-            <div style="text-align:center;font-size:22px;font-weight:bold;color:#6a1b9a;margin:10px 0 15px;text-decoration:underline;">Admission Form</div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1.2;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Form No:</label><input type="text" id="formNo" placeholder="........." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1.5;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Batch No: *</label><select id="batchNo" style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;">${getBatchDropdownHTML("")}</select></div>
-                <div style="flex:1.5;min-width:170px;display:flex;align-items:center;gap:6px;">
-                    <label style="font-weight:600;font-size:12.5px;">Duration:</label>
-                    <select id="durationFrom" style="max-width:80px;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;">
+            <div style="text-align:center;font-size:20px;font-weight:bold;color:#6a1b9a;margin:8px 0 12px;text-decoration:underline;">Admission Form</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1.2;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Form No:</label><input type="text" id="formNo" placeholder="........." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1.5;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Batch No: *</label><select id="batchNo" style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;">${getBatchDropdownHTML("")}</select></div>
+                <div style="flex:1.5;min-width:150px;display:flex;align-items:center;gap:6px;">
+                    <label style="font-weight:600;font-size:12px;">Duration:</label>
+                    <select id="durationFrom" style="max-width:70px;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;">
                         <option value="">--</option><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
                     </select>
-                    <label style="font-weight:400">To</label>
-                    <select id="durationTo" style="max-width:80px;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;">
+                    <label style="font-weight:400;font-size:12px;">To</label>
+                    <select id="durationTo" style="max-width:70px;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;">
                         <option value="">--</option><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
                     </select>
                 </div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;"><div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Course Name: *</label><select id="courseName" style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;">${getCourseDropdownHTML("")}</select></div></div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;"><div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Name (Bangla): *</label><input type="text" id="nameBangla" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div></div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;"><div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Name (English): *</label><input type="text" id="nameEnglish" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div></div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Father's Name: *</label><input type="text" id="fatherName" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Mother's Name: *</label><input type="text" id="motherName" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;"><div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Course Name: *</label><select id="courseName" style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;">${getCourseDropdownHTML("")}</select></div></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;"><div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Name (Bangla): *</label><input type="text" id="nameBangla" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;"><div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Name (English): *</label><input type="text" id="nameEnglish" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Father's Name: *</label><input type="text" id="fatherName" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Mother's Name: *</label><input type="text" id="motherName" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">NID/Birth:</label><input type="text" id="nid" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Occupation:</label><input type="text" id="occupation" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">DOB: *</label><input type="date" id="dob" style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">NID/Birth:</label><input type="text" id="nid" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Occupation:</label><input type="text" id="occupation" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">DOB: *</label><input type="date" id="dob" style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Nationality:</label><input type="text" id="nationality" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Gender:</label><select id="gender" style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"><option value="">--</option><option>Male</option><option>Female</option><option>Other</option></select></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Marital:</label><select id="maritalStatus" style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"><option value="">--</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Nationality:</label><input type="text" id="nationality" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Gender:</label><select id="gender" style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"><option value="">--</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Marital:</label><select id="maritalStatus" style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"><option value="">--</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Phone:</label><input type="text" id="phone" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Guardian Phone:</label><input type="text" id="guardianPhone" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">E-Mail:</label><input type="email" id="email" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Phone:</label><input type="text" id="phone" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Guardian Phone:</label><input type="text" id="guardianPhone" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">E-Mail:</label><input type="email" id="email" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
             </div>
-            <div style="background:#fdd835;text-align:center;font-weight:bold;padding:5px;margin:14px 0 10px;font-size:14px;border-radius:3px;">Permanent Address</div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Village:</label><input type="text" id="village" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Post Office:</label><input type="text" id="postOffice" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
+            <div style="background:#fdd835;text-align:center;font-weight:bold;padding:4px;margin:12px 0 8px;font-size:13px;">Permanent Address</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Village:</label><input type="text" id="village" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Post Office:</label><input type="text" id="postOffice" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">Upazila:</label><input type="text" id="upazila" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
-                <div style="flex:1;min-width:170px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12.5px;">District:</label><input type="text" id="district" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:5px 4px;font-size:13px;outline:none;background:transparent;"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">Upazila:</label><input type="text" id="upazila" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
+                <div style="flex:1;min-width:150px;display:flex;align-items:center;gap:6px;"><label style="font-weight:600;font-size:12px;">District:</label><input type="text" id="district" placeholder="....................." style="flex:1;border:0;border-bottom:1px dotted #333;padding:4px;font-size:12px;outline:none;background:transparent;"></div>
             </div>
-            <div style="text-align:center;font-weight:bold;font-size:16px;text-decoration:underline;margin:14px 0 8px;">Education</div>
-            <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-                <thead><tr><th style="border:1px solid #444;padding:6px;background:#fdd835;color:#222;">Exam Name</th><th style="border:1px solid #444;padding:6px;background:#fdd835;color:#222;">Board/University</th><th style="border:1px solid #444;padding:6px;background:#fdd835;color:#222;">Passing Year</th><th style="border:1px solid #444;padding:6px;background:#fdd835;color:#222;">Roll</th><th style="border:1px solid #444;padding:6px;background:#fdd835;color:#222;">Rg:</th><th style="border:1px solid #444;padding:6px;background:#fdd835;color:#222;">GPA/Class</th></tr></thead>
+            <div style="text-align:center;font-weight:bold;font-size:15px;text-decoration:underline;margin:12px 0 6px;">Education</div>
+            <table style="width:100%;border-collapse:collapse;font-size:11px;">
+                <thead><tr><th style="border:1px solid #444;padding:5px;background:#fdd835;color:#222;">Exam Name</th><th style="border:1px solid #444;padding:5px;background:#fdd835;color:#222;">Board/University</th><th style="border:1px solid #444;padding:5px;background:#fdd835;color:#222;">Passing Year</th><th style="border:1px solid #444;padding:5px;background:#fdd835;color:#222;">Roll</th><th style="border:1px solid #444;padding:5px;background:#fdd835;color:#222;">Rg:</th><th style="border:1px solid #444;padding:5px;background:#fdd835;color:#222;">GPA/Class</th></tr></thead>
                 <tbody>
-                    <tr><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam1Name" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam1Board" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam1Year" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam1Roll" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam1Reg" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam1Gpa" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td></tr>
-                    <tr><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam2Name" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam2Board" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam2Year" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam2Roll" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam2Reg" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam2Gpa" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td></tr>
-                    <tr><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam3Name" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam3Board" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam3Year" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam3Roll" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam3Reg" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td><td style="border:1px solid #444;padding:4px;"><input type="text" id="exam3Gpa" style="width:100%;border:0;outline:none;text-align:center;font-size:12.5px;background:transparent;padding:3px;"></td></tr>
+                    <tr><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam1Name" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam1Board" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam1Year" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam1Roll" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam1Reg" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam1Gpa" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td></tr>
+                    <tr><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam2Name" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam2Board" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam2Year" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam2Roll" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam2Reg" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam2Gpa" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td></tr>
+                    <tr><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam3Name" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam3Board" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam3Year" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam3Roll" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam3Reg" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td><td style="border:1px solid #444;padding:3px;"><input type="text" id="exam3Gpa" style="width:100%;border:0;outline:none;text-align:center;font-size:11px;background:transparent;padding:2px;"></td></tr>
                 </tbody>
             </table>
-            <div style="font-size:12.5px;margin:18px 0 10px;text-align:center;font-style:italic;">I Hereby declare that all statement in the application are true to the best of my knowledge and belief.</div>
-            <div style="display:flex;justify-content:space-between;gap:15px;margin-top:30px;font-size:12.5px;">
-                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:22px;">Signature of Applicant</div><div style="margin-top:18px;font-size:12px;">Date:..........................</div></div>
-                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:22px;">Guardian Signature</div><div style="margin-top:18px;font-size:12px;">Date:..........................</div></div>
-                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:22px;">Official Approval Authority Signature</div><div style="margin-top:18px;font-size:12px;">Date:..........................</div></div>
+            <div style="font-size:11px;margin:14px 0 8px;text-align:center;font-style:italic;">I Hereby declare that all statement in the application are true to the best of my knowledge and belief.</div>
+            <div style="display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:11px;">
+                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:18px;">Signature of Applicant</div><div style="margin-top:14px;font-size:10.5px;">Date:..........................</div></div>
+                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:18px;">Guardian Signature</div><div style="margin-top:14px;font-size:10.5px;">Date:..........................</div></div>
+                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:18px;">Official Approval Authority Signature</div><div style="margin-top:14px;font-size:10.5px;">Date:..........................</div></div>
             </div>
         </form>
     `;
@@ -1683,62 +1746,107 @@ function editStudent(id){
     }
     setTimeout(() => document.getElementById("entryPanel").scrollIntoView({behavior:"smooth",block:"start"}), 50);
 }
+/* ====== VIEW STUDENT — ফি তথ্য ছাড়া শুধু Admission Form ====== */
 function viewStudent(id){
     const s = getStudents().find(x => x.id === id); if(!s) return;
     const btn = document.querySelector('.menu[onclick*="students"]');
     if(btn) showPage('students', btn);
     editingStudentId = null;
     document.getElementById("entryPanelTitle").innerText = "👁 Student Information - " + id;
+    
+    // শুধুমাত্র Education টেবিলের জন্য data
     const edu = s.education || [{},{},{}];
     function eduRow(i){
         const e = edu[i] || {};
-        return `<tr><td style="border:1px solid #444;padding:6px;">${escapeHtml(e.name||"")}</td><td style="border:1px solid #444;padding:6px;">${escapeHtml(e.board||"")}</td><td style="border:1px solid #444;padding:6px;">${escapeHtml(e.year||"")}</td><td style="border:1px solid #444;padding:6px;">${escapeHtml(e.roll||"")}</td><td style="border:1px solid #444;padding:6px;">${escapeHtml(e.reg||"")}</td><td style="border:1px solid #444;padding:6px;">${escapeHtml(e.gpa||"")}</td></tr>`;
+        return `<tr>
+            <td style="border:1px solid #444;padding:5px;">${escapeHtml(e.name||"")}</td>
+            <td style="border:1px solid #444;padding:5px;">${escapeHtml(e.board||"")}</td>
+            <td style="border:1px solid #444;padding:5px;">${escapeHtml(e.year||"")}</td>
+            <td style="border:1px solid #444;padding:5px;">${escapeHtml(e.roll||"")}</td>
+            <td style="border:1px solid #444;padding:5px;">${escapeHtml(e.reg||"")}</td>
+            <td style="border:1px solid #444;padding:5px;">${escapeHtml(e.gpa||"")}</td>
+        </tr>`;
     }
-    const totalFee = getStudentTotalFee(s);
-    const paid = getStudentPaidAmount(s.id);
-    const due = totalFee - paid;
+    
+    // শুধু Admission Form টাইপ ভিউ — Fees Information ছাড়া
     document.getElementById("formContainer").innerHTML = `
-        <div style="border:3px double #444;padding:20px;background:#fff;font-size:13px;">
-            <div style="display:flex;align-items:flex-start;gap:15px;border-bottom:2px solid #b8860b;padding-bottom:12px;margin-bottom:15px;">
-                <div style="width:90px;height:90px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;border-radius:8px;background:#fafafa;overflow:hidden;padding:4px;">
+        <div class="admission-form" style="border:2px solid #444;padding:14px 16px;background:#fff;font-size:12px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;border-bottom:2px solid #b8860b;padding-bottom:10px;margin-bottom:12px;">
+                <div style="width:80px;height:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;background:#fafafa;padding:4px;overflow:hidden;">
                     <img src="${getLogoURL()}" style="max-width:100%;max-height:100%;object-fit:contain;" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=&quot;color:#b0b0b0;font-size:11px;&quot;>লোগো</span>';">
                 </div>
                 <div style="flex:1;text-align:center;">
-                    <h2 style="font-size:20px;color:#24150c;">Bondhusoft IT Computer Training Center</h2>
-                    <h3 style="font-size:18px;color:#c2185b;">বন্ধুসফট আই,টি কম্পিউটার ট্রেনিং সেন্টার</h3>
-                    <p style="font-size:12px;">গ্রামীণ ব্যাংক রোড, শোহাগী বাজার, ঈশ্বরগঞ্জ, ময়মনসিংহ।</p>
+                    <h2 style="font-size:18px;color:#24150c;margin-bottom:3px;">Bondhusoft IT Computer Training Center</h2>
+                    <h3 style="font-size:16px;color:#c2185b;margin-bottom:5px;">বন্ধুসফট আই,টি কম্পিউটার ট্রেনিং সেন্টার</h3>
+                    <p style="font-size:11.5px;">গ্রামীণ ব্যাংক রোড, শোহাগী বাজার, ঈশ্বরগঞ্জ, ময়মনসিংহ।</p>
+                    <p style="font-size:11.5px;">মোবাইল: ০১৯৮১৪-৪৪৬৯৯৬, ০১৬২৮-২৫৫৬৭২, ০১৯৩১-১৫১১৩২০</p>
                 </div>
-                <div style="width:90px;height:110px;border:1px solid #333;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;">ছবি</div>
+                <div style="width:80px;height:100px;border:1px solid #333;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;">ছবি</div>
             </div>
-            <div style="text-align:center;font-size:22px;font-weight:bold;color:#6a1b9a;margin:10px 0 15px;text-decoration:underline;">Admission Form</div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
+            <div style="text-align:center;font-size:20px;font-weight:bold;color:#6a1b9a;margin:8px 0 12px;text-decoration:underline;">Admission Form</div>
+            
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
                 <div style="flex:1;"><strong>Student ID:</strong> ${escapeHtml(s.id||"")}</div>
-                <div style="flex:1;"><strong>Batch:</strong> ${escapeHtml(s.batchNo||"")}</div>
+                <div style="flex:1;"><strong>Form No:</strong> ${escapeHtml(s.formNo||"")}</div>
+                <div style="flex:1;"><strong>Batch No:</strong> ${escapeHtml(s.batchNo||"")}</div>
+                <div style="flex:1;"><strong>Duration:</strong> ${escapeHtml(s.durationFrom||"")} ${(s.durationFrom||s.durationTo)?"To":""} ${escapeHtml(s.durationTo||"")}</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
                 <div style="flex:1;"><strong>Course:</strong> ${escapeHtml(s.courseName||"")}</div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
                 <div style="flex:1;"><strong>Name (Bangla):</strong> ${escapeHtml(s.nameBangla||"")}</div>
                 <div style="flex:1;"><strong>Name (English):</strong> ${escapeHtml(s.nameEnglish||"")}</div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;"><strong>Father:</strong> ${escapeHtml(s.fatherName||"")}</div>
-                <div style="flex:1;"><strong>Mother:</strong> ${escapeHtml(s.motherName||"")}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;"><strong>Father's Name:</strong> ${escapeHtml(s.fatherName||"")}</div>
+                <div style="flex:1;"><strong>Mother's Name:</strong> ${escapeHtml(s.motherName||"")}</div>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;"><strong>Phone:</strong> ${escapeHtml(s.phone||"")}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;"><strong>NID/Birth:</strong> ${escapeHtml(s.nid||"")}</div>
+                <div style="flex:1;"><strong>Occupation:</strong> ${escapeHtml(s.occupation||"")}</div>
                 <div style="flex:1;"><strong>DOB:</strong> ${escapeHtml(s.dob?formatDate(s.dob):"")}</div>
             </div>
-            <div style="background:#fdd835;text-align:center;font-weight:bold;padding:5px;margin:14px 0 10px;font-size:14px;border-radius:3px;">💰 Fees Information</div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
-                <div style="flex:1;"><strong>Total Fee:</strong> ৳${formatNumber(totalFee)}</div>
-                <div style="flex:1;"><strong>Paid:</strong> <span style="color:#16834b;">৳${formatNumber(paid)}</span></div>
-                <div style="flex:1;"><strong>Due:</strong> <span style="color:${due>0?'#c0392b':'#16834b'};">৳${formatNumber(due)}</span></div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;"><strong>Nationality:</strong> ${escapeHtml(s.nationality||"")}</div>
+                <div style="flex:1;"><strong>Gender:</strong> ${escapeHtml(s.gender||"")}</div>
+                <div style="flex:1;"><strong>Marital Status:</strong> ${escapeHtml(s.maritalStatus||"")}</div>
             </div>
-            <div style="text-align:center;font-weight:bold;font-size:16px;text-decoration:underline;margin:14px 0 8px;">Education</div>
-            <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-                <thead><tr><th style="border:1px solid #444;padding:6px;background:#fdd835;">Exam Name</th><th style="border:1px solid #444;padding:6px;background:#fdd835;">Board</th><th style="border:1px solid #444;padding:6px;background:#fdd835;">Passing Year</th><th style="border:1px solid #444;padding:6px;background:#fdd835;">Roll</th><th style="border:1px solid #444;padding:6px;background:#fdd835;">Rg:</th><th style="border:1px solid #444;padding:6px;background:#fdd835;">GPA</th></tr></thead>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;"><strong>Phone:</strong> ${escapeHtml(s.phone||"")}</div>
+                <div style="flex:1;"><strong>Guardian Phone:</strong> ${escapeHtml(s.guardianPhone||"")}</div>
+                <div style="flex:1;"><strong>E-Mail:</strong> ${escapeHtml(s.email||"")}</div>
+            </div>
+            
+            <div style="background:#fdd835;text-align:center;font-weight:bold;padding:4px;margin:12px 0 8px;font-size:13px;">Permanent Address</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;"><strong>Village:</strong> ${escapeHtml(s.village||"")}</div>
+                <div style="flex:1;"><strong>Post Office:</strong> ${escapeHtml(s.postOffice||"")}</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;"><strong>Upazila:</strong> ${escapeHtml(s.upazila||"")}</div>
+                <div style="flex:1;"><strong>District:</strong> ${escapeHtml(s.district||"")}</div>
+            </div>
+            
+            <div style="text-align:center;font-weight:bold;font-size:15px;text-decoration:underline;margin:12px 0 6px;">Education</div>
+            <table style="width:100%;border-collapse:collapse;font-size:11px;">
+                <thead><tr>
+                    <th style="border:1px solid #444;padding:5px;background:#fdd835;">Exam Name</th>
+                    <th style="border:1px solid #444;padding:5px;background:#fdd835;">Board</th>
+                    <th style="border:1px solid #444;padding:5px;background:#fdd835;">Passing Year</th>
+                    <th style="border:1px solid #444;padding:5px;background:#fdd835;">Roll</th>
+                    <th style="border:1px solid #444;padding:5px;background:#fdd835;">Rg:</th>
+                    <th style="border:1px solid #444;padding:5px;background:#fdd835;">GPA</th>
+                </tr></thead>
                 <tbody>${eduRow(0)}${eduRow(1)}${eduRow(2)}</tbody>
             </table>
+            
+            <div style="font-size:11px;margin:14px 0 8px;text-align:center;font-style:italic;">I Hereby declare that all statement in the application are true to the best of my knowledge and belief.</div>
+            <div style="display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:11px;">
+                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:18px;">Signature of Applicant</div></div>
+                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:18px;">Guardian Signature</div></div>
+                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:18px;">Official Approval Authority Signature</div></div>
+            </div>
         </div>
     `;
     document.getElementById("formActions").innerHTML = `
@@ -1802,28 +1910,32 @@ function saveStudent(){
 }
 function val(id){const el = document.getElementById(id); return el ? el.value.trim() : "";}
 function setVal(id, v){const el = document.getElementById(id); if(el) el.value = v || "";}
+
+/* ====== PRINT CURRENT FORM — শুধু Admission Form Print হবে ====== */
 function printCurrentForm(){
     const fc = document.getElementById("formContainer");
     if(!fc || !fc.innerHTML.trim()){alert("⚠️ আগে ফরম খুলুন।"); return;}
     
-    // ফরমের ভেতরে থাকা .admission-form ক্লোন করো
+    // formContainer এর ভেতরের admission-form ক্লোন করো
     const formEl = fc.querySelector(".admission-form");
-    if(!formEl){
-        alert("⚠️ কোনো ফরম পাওয়া যায়নি।");
-        return;
+    let html;
+    if(formEl){
+        html = formEl.outerHTML;
+    } else {
+        // fallback: পুরো কন্টেইনার
+        html = fc.innerHTML;
     }
     
-    // Fees Information সেকশন বাদ দাও (থাকলে)
-    const clone = formEl.cloneNode(true);
-    // যদি view-mode হয়, Fees Information সেকশন সরিয়ে দাও
-    const allBars = clone.querySelectorAll(".section-bar, .edu-title");
-    allBars.forEach(bar => {
+    // Fees Information সেকশন থাকলে সরিয়ে দাও (নিরাপত্তার জন্য)
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    const feesBars = tempDiv.querySelectorAll(".section-bar");
+    feesBars.forEach(bar => {
         const txt = (bar.textContent || "").trim();
         if(txt.includes("Fees") || txt.includes("💰")){
-            // পরবর্তী .row গুলোও সরাও
             let next = bar.nextElementSibling;
             bar.remove();
-            while(next && next.classList && next.classList.contains("row")){
+            while(next && (next.classList.contains("row") || (next.querySelector && next.querySelector("strong") && next.textContent.includes("Total Fee")))){
                 const toRemove = next;
                 next = next.nextElementSibling;
                 toRemove.remove();
@@ -1831,8 +1943,7 @@ function printCurrentForm(){
         }
     });
     
-    // Print এ পাঠাও
-    doPrint(clone.outerHTML, "a4");
+    doPrint(tempDiv.innerHTML, "a4");
 }
 function printBlankForm(){
     const t = document.createElement("div");
@@ -1842,11 +1953,13 @@ function printBlankForm(){
 function doPrint(html, mode){
     const pa = document.getElementById("printArea");
     pa.innerHTML = html;
+    
     let styleEl = document.getElementById("printPageStyle");
     if(!styleEl){styleEl = document.createElement("style"); styleEl.id = "printPageStyle"; document.head.appendChild(styleEl);}
-    if(mode === "a5") styleEl.innerHTML = `@media print { @page { size: A5 portrait; margin: 8mm; } }`;
-    else styleEl.innerHTML = `@media print { @page { size: A4 portrait; margin: 12mm; } }`;
-    window.print();
+    if(mode === "a5") styleEl.innerHTML = `@media print { @page { size: A5 portrait; margin: 6mm 6mm 6mm 6mm; } }`;
+    else styleEl.innerHTML = `@media print { @page { size: A4 portrait; margin: 8mm 10mm 8mm 10mm; } }`;
+    
+    setTimeout(function(){ window.print(); }, 100);
 }
 function renderStudents(){
     const students = getStudents();
@@ -2338,7 +2451,7 @@ function showReceiptView(id){
     const html = `
         <div class="receipt-preview">
             <div class="rc-header">
-                <img class="rc-logo" src="${escapeHtml(logoUrl)}" onerror="this.style.display='none';">
+                ${logoUrl ? `<img class="rc-logo" src="${escapeHtml(logoUrl)}" onerror="this.style.display='none';">` : ''}
                 <h2>${escapeHtml(centerName)}</h2>
                 <h3>কম্পিউটার ট্রেনিং সেন্টার</h3>
                 <p>${escapeHtml(address)}</p>
@@ -2648,7 +2761,7 @@ function getCertificateHTML(c){
     return `
         <div class="certificate-preview">
             <div class="cp-watermark">BONDHUSOFT</div>
-            <img class="cp-logo" src="${escapeHtml(logoUrl)}" onerror="this.style.display='none';">
+            ${logoUrl ? `<img class="cp-logo" src="${escapeHtml(logoUrl)}" onerror="this.style.display='none';">` : ''}
             <h1 style="color:#8a6200;font-size:28px;letter-spacing:2px;margin-bottom:4px;">${escapeHtml(centerName).toUpperCase()}</h1>
             <div style="color:#444;font-size:13px;margin-bottom:6px;">COMPUTER TRAINING CENTER</div>
             <div style="color:#444;font-size:13px;margin-bottom:6px;">${escapeHtml(address)}</div>
@@ -2712,10 +2825,8 @@ function refreshReportsDashboard(){
     const certs = getCertificates();
     const batches = getBatches();
     const courses = getCourses();
-
     let totalCol = 0;
     payments.forEach(p => totalCol += (parseFloat(p.amount)||0));
-
     let totalDue = 0;
     students.forEach(s => {
         const fee = getStudentTotalFee(s);
@@ -2723,17 +2834,14 @@ function refreshReportsDashboard(){
         const due = fee - paid;
         if(due > 0) totalDue += due;
     });
-
     let avgAtt = 0;
     if(attendance.length > 0){
         let att = 0;
         attendance.forEach(a => {if(a.status === "Present" || a.status === "Late") att++;});
         avgAtt = Math.round((att / attendance.length) * 100);
     }
-
     let delivered = 0;
     certs.forEach(c => {if(c.status === "delivered") delivered++;});
-
     const set = (id, val) => {const el = document.getElementById(id); if(el) el.innerText = val;};
     set("rcTotalStudents", students.length);
     set("rcActiveStudents", students.filter(s => s.status === "Active").length);
@@ -3192,7 +3300,6 @@ function saveSettings(){
     };
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(data));
     alert("✅ Settings saved.");
-    // Update header logo image if changed
     updateHeaderLogo();
 }
 function loadSettings(){
@@ -3203,7 +3310,6 @@ function loadSettings(){
         if(d.address) document.getElementById("setAddress").value = d.address;
         if(d.email) document.getElementById("setEmail").value = d.email;
         if(d.website) document.getElementById("setWebsite").value = d.website;
-        // লোগো URL: Settings এ থাকলে সেটা, না থাকলে default
         document.getElementById("setLogoUrl").value = d.logoUrl || DEFAULT_LOGO_URL;
     }catch(e){
         document.getElementById("setLogoUrl").value = DEFAULT_LOGO_URL;
