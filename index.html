@@ -1805,7 +1805,34 @@ function setVal(id, v){const el = document.getElementById(id); if(el) el.value =
 function printCurrentForm(){
     const fc = document.getElementById("formContainer");
     if(!fc || !fc.innerHTML.trim()){alert("⚠️ আগে ফরম খুলুন।"); return;}
-    doPrint(fc.innerHTML, "a4");
+    
+    // ফরমের ভেতরে থাকা .admission-form ক্লোন করো
+    const formEl = fc.querySelector(".admission-form");
+    if(!formEl){
+        alert("⚠️ কোনো ফরম পাওয়া যায়নি।");
+        return;
+    }
+    
+    // Fees Information সেকশন বাদ দাও (থাকলে)
+    const clone = formEl.cloneNode(true);
+    // যদি view-mode হয়, Fees Information সেকশন সরিয়ে দাও
+    const allBars = clone.querySelectorAll(".section-bar, .edu-title");
+    allBars.forEach(bar => {
+        const txt = (bar.textContent || "").trim();
+        if(txt.includes("Fees") || txt.includes("💰")){
+            // পরবর্তী .row গুলোও সরাও
+            let next = bar.nextElementSibling;
+            bar.remove();
+            while(next && next.classList && next.classList.contains("row")){
+                const toRemove = next;
+                next = next.nextElementSibling;
+                toRemove.remove();
+            }
+        }
+    });
+    
+    // Print এ পাঠাও
+    doPrint(clone.outerHTML, "a4");
 }
 function printBlankForm(){
     const t = document.createElement("div");
