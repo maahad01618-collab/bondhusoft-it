@@ -6,6 +6,11 @@
 
 <title>BondhuSoft IT - Student Management</title>
 
+<!-- ===== FAVICON (Browser Tab Icon) ===== -->
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png">
+<link rel="shortcut icon" href="https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Arial,sans-serif;}
 html,body{height:100%;overflow:hidden;}
@@ -21,6 +26,10 @@ body{background:#f5f6f8;color:#222;}
 .logo-icon{
     width:44px;height:44px;background:#d4a017;border-radius:10px;
     display:flex;align-items:center;justify-content:center;font-size:23px;
+    overflow:hidden;flex-shrink:0;
+}
+.logo-icon img{
+    width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;
 }
 .logo h2{font-size:20px;}
 .logo small{color:#d9c7a5;font-size:12px;}
@@ -100,6 +109,22 @@ table{width:100%;border-collapse:collapse;min-width:650px;}
 th,td{padding:12px 10px;border-bottom:1px solid #eee;text-align:left;font-size:13px;}
 th{background:#fff8e7;color:#765500;}
 
+.status{padding:5px 9px;border-radius:20px;font-size:11px;}
+.status.active{background:#e5f8ed;color:#16834b;}
+.status.inactive{background:#f1f1f1;color:#777;}
+.status.upcoming{background:#fff4e0;color:#b26a00;}
+.status.complete{background:#e9f0ff;color:#3459a8;}
+
+/* Certificate Status Badges */
+.cert-badge{
+    padding:5px 10px;border-radius:20px;font-size:11px;
+    font-weight:600;display:inline-block;
+}
+.cert-pending{background:#f1f5f9;color:#475569;}
+.cert-sent{background:#fef3c7;color:#92400e;}
+.cert-received{background:#dbeafe;color:#1e40af;}
+.cert-delivered{background:#dcfce7;color:#166534;}
+
 /* ===== EMPTY STATE ===== */
 .empty-state{text-align:center;padding:40px 20px;color:#999;}
 .empty-state .empty-icon{font-size:50px;margin-bottom:10px;opacity:0.4;}
@@ -121,91 +146,56 @@ th{background:#fff8e7;color:#765500;}
 .form-group textarea{resize:vertical;min-height:70px;}
 .full{grid-column:1/-1;}
 
-/* ===== REPORT DASHBOARD ===== */
-.report-dashboard{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
-    margin-bottom:20px;
+/* ===== ATTENDANCE Radio ===== */
+.att-radio-group{display:flex;gap:6px;flex-wrap:wrap;}
+.att-radio{position:relative;}
+.att-radio input{position:absolute;opacity:0;pointer-events:none;}
+.att-radio label{
+    display:inline-block;padding:6px 12px;
+    border:2px solid #ddd;border-radius:20px;font-size:12px;font-weight:600;
+    cursor:pointer;transition:all .15s;color:#666;background:#fff;user-select:none;
 }
-.report-card{
-    background:white;
-    border-radius:12px;
-    padding:22px;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-    cursor:pointer;
-    transition:all .2s;
-    border:2px solid transparent;
-    position:relative;
-    overflow:hidden;
-}
-.report-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 24px rgba(0,0,0,.1);
-    border-color:#b8860b;
-}
-.report-card .rc-head{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:15px;
-}
-.report-card .rc-icon{
-    width:52px;
-    height:52px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:26px;
-    flex-shrink:0;
-}
-.report-card .rc-title{
-    font-size:17px;
-    font-weight:700;
-    color:#24150c;
-}
-.report-card .rc-sub{
-    font-size:12px;
-    color:#777;
-    margin-top:2px;
-}
-.report-card .rc-body{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-.report-card .rc-stat{
-    background:#fafafa;
-    border-radius:8px;
-    padding:10px 12px;
-    border:1px solid #eee;
-}
-.report-card .rc-stat .stat-label{
-    font-size:11px;
-    color:#888;
-    font-weight:600;
-    margin-bottom:3px;
-}
-.report-card .rc-stat .stat-value{
-    font-size:18px;
-    font-weight:bold;
-    color:#24150c;
-}
-.report-card .rc-arrow{
-    position:absolute;
-    top:18px;
-    right:18px;
-    font-size:20px;
-    color:#c7c7c7;
-    transition:all .2s;
-}
-.report-card:hover .rc-arrow{
-    color:#b8860b;
-    transform:translateX(4px);
-}
+.att-radio input:checked + label.present{background:#dcfce7;border-color:#16a34a;color:#166534;}
+.att-radio input:checked + label.absent{background:#fee2e2;border-color:#dc2626;color:#991b1b;}
+.att-radio input:checked + label.late{background:#fef3c7;border-color:#f59e0b;color:#92400e;}
+.att-radio input:checked + label.leave{background:#e0e7ff;border-color:#6366f1;color:#3730a3;}
 
-/* icon colors */
+/* ===== CHIPS ===== */
+.att-summary,.rep-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;}
+.chip{
+    padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;
+    display:flex;align-items:center;gap:6px;
+}
+.chip.chip-present,.chip.chip-green,.chip.chip-paid{background:#dcfce7;color:#166534;}
+.chip.chip-absent,.chip.chip-red,.chip.chip-due{background:#fee2e2;color:#991b1b;}
+.chip.chip-late,.chip.chip-orange{background:#fef3c7;color:#92400e;}
+.chip.chip-leave,.chip.chip-blue{background:#dbeafe;color:#1e40af;}
+.chip.chip-total{background:#f1f5f9;color:#334155;}
+.chip.chip-purple{background:#ede9fe;color:#6b21a8;}
+
+/* ===== REPORT DASHBOARD ===== */
+.report-dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:20px;}
+.report-card{
+    background:white;border-radius:12px;padding:22px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;
+    transition:all .2s;border:2px solid transparent;position:relative;overflow:hidden;
+}
+.report-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1);border-color:#b8860b;}
+.report-card .rc-head{display:flex;align-items:center;gap:12px;margin-bottom:15px;}
+.report-card .rc-icon{
+    width:52px;height:52px;border-radius:12px;display:flex;
+    align-items:center;justify-content:center;font-size:26px;flex-shrink:0;
+}
+.report-card .rc-title{font-size:17px;font-weight:700;color:#24150c;}
+.report-card .rc-sub{font-size:12px;color:#777;margin-top:2px;}
+.report-card .rc-body{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.report-card .rc-stat{background:#fafafa;border-radius:8px;padding:10px 12px;border:1px solid #eee;}
+.report-card .rc-stat .stat-label{font-size:11px;color:#888;font-weight:600;margin-bottom:3px;}
+.report-card .rc-stat .stat-value{font-size:18px;font-weight:bold;color:#24150c;}
+.report-card .rc-arrow{
+    position:absolute;top:18px;right:18px;font-size:20px;color:#c7c7c7;transition:all .2s;
+}
+.report-card:hover .rc-arrow{color:#b8860b;transform:translateX(4px);}
 .rc-icon-blue{background:#dbeafe;color:#1e40af;}
 .rc-icon-green{background:#dcfce7;color:#166534;}
 .rc-icon-orange{background:#fef3c7;color:#92400e;}
@@ -213,161 +203,89 @@ th{background:#fff8e7;color:#765500;}
 .rc-icon-red{background:#fee2e2;color:#991b1b;}
 .rc-icon-teal{background:#ccfbf1;color:#115e59;}
 
-/* ===== REPORT VIEW PANEL ===== */
-.report-panel{
-    background:white;
-    border-radius:12px;
-    padding:22px;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-    margin-bottom:20px;
-}
-.report-panel h3{
-    margin-bottom:15px;
-    font-size:18px;
-    color:#24150c;
-}
-
-/* Report summary chips */
-.rep-summary{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
-}
-.rep-summary .chip{
-    padding:9px 15px;
-    border-radius:8px;
-    font-size:13px;
-    font-weight:600;
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-.chip.chip-total{background:#f1f5f9;color:#334155;}
-.chip.chip-green{background:#dcfce7;color:#166534;}
-.chip.chip-red{background:#fee2e2;color:#991b1b;}
-.chip.chip-blue{background:#dbeafe;color:#1e40af;}
-.chip.chip-orange{background:#fef3c7;color:#92400e;}
-.chip.chip-purple{background:#ede9fe;color:#6b21a8;}
-
-/* Filter bar */
-.filter-bar{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:15px;
-    padding:14px;
-    background:#fafafa;
-    border-radius:8px;
-    align-items:end;
-}
-.filter-bar .filter-item{
-    flex:1;
-    min-width:160px;
-}
-.filter-bar label{
-    font-size:12px;
-    font-weight:600;
-    color:#555;
-    display:block;
-    margin-bottom:4px;
-}
-.filter-bar input,
-.filter-bar select{
-    width:100%;
-    padding:9px 11px;
-    border:1px solid #ddd;
-    border-radius:6px;
-    outline:none;
-    font-size:13px;
-    font-family:inherit;
-}
-.filter-bar input:focus,
-.filter-bar select:focus{border-color:#b8860b;}
-
-/* Report header (for print) */
-.report-header{
-    text-align:center;
-    padding-bottom:12px;
-    margin-bottom:18px;
-    border-bottom:2px solid #b8860b;
-}
-.report-header h2{
-    font-size:20px;
-    color:#24150c;
-    margin-bottom:4px;
-}
-.report-header .rh-sub{
-    font-size:12px;
-    color:#555;
-}
-.report-header .rh-title{
-    font-size:17px;
-    color:#6a1b9a;
-    font-weight:bold;
-    letter-spacing:1px;
-    margin-top:10px;
-    text-decoration:underline;
-}
-.report-header .rh-meta{
-    font-size:11.5px;
-    color:#666;
-    margin-top:6px;
-}
-
 /* ===== REPORT TABLE ===== */
-.rep-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
-    min-width:auto;
-}
+.rep-table{width:100%;border-collapse:collapse;margin-top:15px;min-width:auto;}
 .rep-table th,
-.rep-table td{
-    padding:10px 8px;
-    border:1px solid #ddd;
-    font-size:12.5px;
-    text-align:left;
-}
-.rep-table th{
-    background:#fff8e7;
-    color:#765500;
-    font-weight:700;
-    text-align:center;
-}
+.rep-table td{padding:10px 8px;border:1px solid #ddd;font-size:12.5px;text-align:left;}
+.rep-table th{background:#fff8e7;color:#765500;font-weight:700;text-align:center;}
 .rep-table td.center{text-align:center;}
 .rep-table td.right{text-align:right;}
-.rep-table tfoot td{
-    background:#fef7e0;
-    font-weight:bold;
-    color:#8a6200;
-}
+.rep-table tfoot td{background:#fef7e0;font-weight:bold;color:#8a6200;}
 .rep-table .mini-bar{
-    display:inline-block;
-    height:6px;
-    background:#b8860b;
-    border-radius:3px;
-    vertical-align:middle;
-    margin-right:6px;
+    display:inline-block;height:6px;background:#b8860b;border-radius:3px;
+    vertical-align:middle;margin-right:6px;
 }
-.rep-table .mini-bar.red{background:#c0392b;}
-.rep-table .mini-bar.green{background:#16834b;}
 
-/* progress bar for attendance % */
 .pct-bar-wrap{
-    background:#eee;
-    height:8px;
-    border-radius:5px;
-    overflow:hidden;
-    min-width:80px;
-    display:inline-block;
-    vertical-align:middle;
-    width:100px;
-    margin-right:8px;
+    background:#eee;height:8px;border-radius:5px;overflow:hidden;
+    min-width:80px;display:inline-block;vertical-align:middle;width:100px;margin-right:8px;
 }
-.pct-bar{
-    height:100%;
-    border-radius:5px;
+.pct-bar{height:100%;border-radius:5px;}
+
+/* ===== REPORT HEADER ===== */
+.report-header{
+    text-align:center;padding-bottom:12px;margin-bottom:18px;
+    border-bottom:2px solid #b8860b;
+}
+.report-header h2{font-size:20px;color:#24150c;margin-bottom:4px;}
+.report-header .rh-sub{font-size:12px;color:#555;}
+.report-header .rh-title{
+    font-size:17px;color:#6a1b9a;font-weight:bold;letter-spacing:1px;
+    margin-top:10px;text-decoration:underline;
+}
+.report-header .rh-meta{font-size:11.5px;color:#666;margin-top:6px;}
+
+/* ===== CERTIFICATE PREVIEW ===== */
+.certificate-preview{
+    border:8px solid #d4a017;padding:40px 35px;background:#fffdf6;
+    text-align:center;max-width:800px;margin:0 auto;
+    font-family:Georgia,serif;position:relative;
+}
+.certificate-preview .cp-watermark{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) rotate(-25deg);
+    font-size:80px;color:rgba(212,160,23,0.06);font-weight:bold;
+    pointer-events:none;letter-spacing:8px;z-index:0;
+}
+.certificate-preview .cp-logo{
+    max-width:80px;max-height:80px;margin:0 auto 10px;
+    display:block;object-fit:contain;
+}
+
+/* ===== MONEY RECEIPT ===== */
+.receipt-preview{
+    border:3px double #333;padding:20px 25px;background:#fff;
+    max-width:620px;margin:0 auto;font-size:13px;
+}
+.receipt-preview .rc-header{
+    text-align:center;border-bottom:2px solid #b8860b;
+    padding-bottom:10px;margin-bottom:14px;
+}
+.receipt-preview .rc-header h2{font-size:19px;color:#24150c;margin-bottom:3px;}
+.receipt-preview .rc-header h3{font-size:15px;color:#c2185b;margin-bottom:4px;}
+.receipt-preview .rc-header p{font-size:11.5px;color:#555;}
+.receipt-preview .rc-logo{
+    max-width:80px;max-height:80px;object-fit:contain;margin-bottom:8px;
+}
+.receipt-preview .rc-title{
+    text-align:center;font-size:17px;font-weight:bold;color:#6a1b9a;
+    letter-spacing:2px;margin:10px 0 14px;text-decoration:underline;
+}
+.receipt-preview .rc-row{
+    display:flex;justify-content:space-between;padding:6px 0;
+    border-bottom:1px dotted #ccc;font-size:13px;
+}
+.receipt-preview .rc-total{
+    margin-top:12px;padding:10px 12px;background:#fff8e7;border-radius:8px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-weight:bold;font-size:15px;color:#8a6200;
+}
+.receipt-preview .rc-signatures{
+    display:flex;justify-content:space-between;margin-top:38px;font-size:12px;
+}
+.receipt-preview .rc-signatures .sig{flex:1;text-align:center;}
+.receipt-preview .rc-signatures .sig .line{
+    border-top:1px solid #333;margin-bottom:4px;padding-top:20px;
 }
 
 /* ===== PRINT ===== */
@@ -385,37 +303,39 @@ th{background:#fff8e7;color:#765500;}
         display:block !important;position:absolute;left:0;top:0;
         width:100%;padding:0;margin:0;background:#fff;
     }
+    #printArea .admission-form{
+        border:3px double #444 !important;padding:14px 16px !important;
+        font-size:12px !important;page-break-inside:avoid;
+        page-break-after:avoid;margin:0 !important;width:100% !important;
+    }
+    #printArea .receipt-preview{
+        border:3px double #333 !important;padding:12px 15px !important;
+        font-size:11px !important;page-break-inside:avoid;
+        margin:0 auto !important;width:100% !important;max-width:148mm !important;
+    }
+    #printArea .certificate-preview{
+        border:6px solid #d4a017 !important;padding:25px 20px !important;
+        page-break-inside:avoid;width:100% !important;
+        max-width:190mm !important;margin:0 auto !important;
+    }
     #printArea .report-header{
-        text-align:center;
-        padding-bottom:12px;
-        margin-bottom:15px;
+        text-align:center;padding-bottom:12px;margin-bottom:15px;
         border-bottom:2px solid #b8860b;
     }
     #printArea .report-header h2{font-size:19px;color:#24150c;margin-bottom:4px;}
-    #printArea .report-header .rh-sub{font-size:11.5px;color:#555;}
-    #printArea .report-header .rh-title{font-size:16px;color:#6a1b9a;font-weight:bold;letter-spacing:1px;margin-top:10px;text-decoration:underline;}
-    #printArea .report-header .rh-meta{font-size:11px;color:#666;margin-top:5px;}
-
+    #printArea .report-header .rh-title{font-size:16px;color:#6a1b9a;font-weight:bold;text-decoration:underline;}
     #printArea .rep-table{width:100%;border-collapse:collapse;margin-top:12px;}
     #printArea .rep-table th,
     #printArea .rep-table td{border:1px solid #666;padding:7px 6px;font-size:11px;}
     #printArea .rep-table th{background:#fef7e0;color:#5a4200;font-weight:700;text-align:center;}
-
     #printArea .print-footer{
-        margin-top:30px;
-        display:flex;
-        justify-content:space-between;
-        font-size:10.5px;
+        margin-top:30px;display:flex;justify-content:space-between;font-size:10.5px;
     }
-    #printArea .print-footer .sig{
-        text-align:center;
-        width:160px;
-    }
+    #printArea .print-footer .sig{text-align:center;width:160px;}
     #printArea .print-footer .sig .line{
-        border-top:1px solid #333;
-        margin-bottom:4px;
-        padding-top:22px;
+        border-top:1px solid #333;margin-bottom:4px;padding-top:22px;
     }
+    #printArea > *:last-child{margin-bottom:0 !important;padding-bottom:0 !important;}
     .no-print{display:none !important;}
 }
 
@@ -424,7 +344,6 @@ th{background:#fff8e7;color:#765500;}
     .cards{grid-template-columns:repeat(2,1fr);}
     .sidebar{width:210px;}
     .report-dashboard{grid-template-columns:1fr;}
-    .report-card .rc-body{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:700px){
     .header{padding:0 12px;}
@@ -454,7 +373,12 @@ th{background:#fff8e7;color:#765500;}
 <!-- ================= HEADER ================= -->
 <header class="header">
     <div class="logo">
-        <div class="logo-icon">💻</div>
+        <div class="logo-icon">
+            <img id="headerLogoImg" 
+                 src="https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png" 
+                 alt="BS-IT" 
+                 onerror="this.style.display='none';this.parentNode.innerHTML='💻';">
+        </div>
         <div>
             <h2>BondhuSoft IT</h2>
             <small>Computer Training Center</small>
@@ -745,7 +669,7 @@ th{background:#fff8e7;color:#765500;}
         <button type="button" class="btn orange sm" onclick="bulkSetAttendance('Late')">⏰ All Late</button>
         <button type="button" class="btn purple sm" onclick="bulkSetAttendance('Leave')">🏖 All Leave</button>
     </div>
-    <div id="attSummary" class="att-summary" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;"></div>
+    <div id="attSummary" class="att-summary"></div>
     <div class="table-box" style="padding:0;box-shadow:none;">
         <table id="attendanceEntryTable" style="display:none;">
             <thead><tr><th style="width:50px;">#</th><th>Student ID</th><th>Student Name</th><th>Course</th><th style="width:340px;">Attendance</th></tr></thead>
@@ -771,7 +695,7 @@ th{background:#fff8e7;color:#765500;}
         </select></div>
         <div class="form-group" style="margin-bottom:0;"><button type="button" class="btn gray" onclick="hideHistoryPanel()" style="width:100%;">✖ Close</button></div>
     </div>
-    <div id="histSummary" class="att-summary" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;"></div>
+    <div id="histSummary" class="att-summary"></div>
     <div class="table-box" style="padding:0;box-shadow:none;">
         <table id="historyTable" style="display:none;">
             <thead><tr><th>Date</th><th>Student</th><th>Student ID</th><th>Batch</th><th>Course</th><th>Status</th><th>Action</th></tr></thead>
@@ -868,7 +792,7 @@ th{background:#fff8e7;color:#765500;}
         <button class="btn gray" onclick="clearPaymentFilters()">Clear</button>
         <button class="btn gray" onclick="hideAllPayments()">✖ Close</button>
     </div>
-    <div id="paymentsSummary" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;"></div>
+    <div id="paymentsSummary"></div>
     <div class="table-box" style="padding:0;box-shadow:none;">
         <table id="paymentsTable" style="display:none;">
             <thead><tr><th>Receipt</th><th>Date</th><th>Student</th><th>Course</th><th>Paid</th><th>Method</th><th>Action</th></tr></thead>
@@ -884,7 +808,7 @@ th{background:#fff8e7;color:#765500;}
         <select id="dueFilterBatch" onchange="renderDueList()" style="padding:11px;border:1px solid #ddd;border-radius:7px;outline:none;max-width:200px;"><option value="">All Batches</option></select>
         <button class="btn gray" onclick="hideDueList()">✖ Close</button>
     </div>
-    <div id="dueSummary" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;"></div>
+    <div id="dueSummary"></div>
     <div class="table-box" style="padding:0;box-shadow:none;">
         <table id="dueTable" style="display:none;">
             <thead><tr><th>Student</th><th>ID</th><th>Batch</th><th>Course</th><th>Total Fee</th><th>Paid</th><th>Due</th><th>Action</th></tr></thead>
@@ -983,7 +907,7 @@ th{background:#fff8e7;color:#765500;}
         <select id="certFilterBatch" onchange="renderAllCertificates()" style="padding:11px;border:1px solid #ddd;border-radius:7px;outline:none;max-width:180px;"><option value="">All Batches</option></select>
         <button class="btn gray" onclick="hideAllCertificates()">✖ Close</button>
     </div>
-    <div id="certSummary" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;"></div>
+    <div id="certSummary"></div>
     <div class="table-box" style="padding:0;box-shadow:none;">
         <table id="certsTable" style="display:none;">
             <thead><tr><th>Certificate No</th><th>Student</th><th>Course</th><th>Batch</th><th>Status</th><th>Issue Date</th><th>Action</th></tr></thead>
@@ -1019,7 +943,6 @@ th{background:#fff8e7;color:#765500;}
     </div>
 </div>
 
-<!-- ============ REPORTS DASHBOARD ============ -->
 <div class="report-dashboard" id="reportsDashboard">
 
     <div class="report-card" onclick="showStudentReport()">
@@ -1149,10 +1072,8 @@ th{background:#fff8e7;color:#765500;}
     </div>
 
 </div>
-<!-- ============ /REPORTS DASHBOARD ============ -->
 
-<!-- ============ REPORT VIEW PANEL ============ -->
-<div class="report-panel" id="reportViewPanel" style="display:none;">
+<div class="report-panel" id="reportViewPanel" style="display:none;background:white;border-radius:12px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:20px;">
     <div id="reportViewContent"></div>
     <div class="form-actions no-print" style="display:flex;justify-content:flex-end;gap:10px;padding:15px 0 0;flex-wrap:wrap;">
         <button type="button" class="btn gray" onclick="resetReportsView()">✖ Close</button>
@@ -1160,7 +1081,6 @@ th{background:#fff8e7;color:#765500;}
         <button type="button" class="btn blue" onclick="printCurrentReport()">🖨 Print (A4)</button>
     </div>
 </div>
-<!-- ============ /REPORT VIEW ============ -->
 
 </section>
 
@@ -1195,7 +1115,7 @@ th{background:#fff8e7;color:#765500;}
         <div class="form-group full"><label>Address</label><input id="setAddress" placeholder="Enter address"></div>
         <div class="form-group"><label>Email</label><input id="setEmail" placeholder="Enter email"></div>
         <div class="form-group"><label>Website</label><input id="setWebsite" placeholder="Enter website"></div>
-        <div class="form-group full"><label>Logo URL (optional)</label><input id="setLogoUrl" placeholder="https://example.com/logo.png or data:image/..."></div>
+        <div class="form-group full"><label>Logo URL (optional)</label><input id="setLogoUrl" placeholder="https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png"></div>
     </div>
     <br>
     <button class="btn" onclick="saveSettings()">Save Settings</button>
@@ -1214,6 +1134,18 @@ th{background:#fff8e7;color:#765500;}
 <!-- ================= JAVASCRIPT ================= -->
 <script>
 
+/* ============== DEFAULT LOGO URL (GitHub) ============== */
+const DEFAULT_LOGO_URL = "https://raw.githubusercontent.com/maahad01618-collab/bondhusoft-it/main/bsit.png";
+
+/* Helper: কোন লোগো URL ব্যবহার হবে */
+function getLogoURL(){
+    try{
+        const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+        if(s.logoUrl && s.logoUrl.trim()) return s.logoUrl.trim();
+    }catch(e){}
+    return DEFAULT_LOGO_URL;
+}
+
 /* ============== STORAGE KEYS ============== */
 const STORAGE_KEY = "BondhuSoftIT_Students";
 const COURSE_KEY = "BondhuSoftIT_Courses";
@@ -1229,20 +1161,15 @@ let editingCourseId = null;
 let editingBatchId = null;
 let editingTrainerId = null;
 let editingCertId = null;
-
-/* Current report for CSV export */
 let currentReportData = null;
 
 /* ============== PAGE SWITCH ============== */
 function showPage(pageId, button){
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById(pageId).classList.add("active");
-
     document.querySelectorAll(".menu").forEach(m => m.classList.remove("active"));
     button.classList.add("active");
-
     document.querySelector(".content").scrollTop = 0;
-
     if(pageId === "courses") renderCourses();
     if(pageId === "batches") renderBatches();
     if(pageId === "trainers") renderTrainers();
@@ -1632,9 +1559,9 @@ function getAdmissionFormHTML(){
     return `
         <form class="admission-form" id="admissionForm" onsubmit="event.preventDefault();" style="border:3px double #444;padding:20px;background:#fff;font-size:13px;">
             <div style="display:flex;align-items:flex-start;gap:15px;border-bottom:2px solid #b8860b;padding-bottom:12px;margin-bottom:15px;">
-                <div id="formLogoBox" style="width:90px;height:90px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;border-radius:8px;background:#fafafa;color:#b0b0b0;font-size:11px;text-align:center;line-height:1.3;padding:4px;">
-                    <img id="formLogoImg" src="" style="display:none;max-width:100%;max-height:100%;object-fit:contain;">
-                    <span id="formLogoPlaceholder">লোগো<br>এখানে</span>
+                <div id="formLogoBox" style="width:90px;height:90px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;border-radius:8px;background:#fafafa;color:#b0b0b0;font-size:11px;text-align:center;line-height:1.3;padding:4px;overflow:hidden;">
+                    <img id="formLogoImg" src="${getLogoURL()}" style="max-width:100%;max-height:100%;object-fit:contain;display:block;" onerror="this.style.display='none';document.getElementById('formLogoPlaceholder').style.display='block';">
+                    <span id="formLogoPlaceholder" style="display:none;">লোগো<br>এখানে</span>
                 </div>
                 <div style="flex:1;text-align:center;">
                     <h2 style="font-size:20px;color:#24150c;margin-bottom:4px;">Bondhusoft IT Computer Training Center</h2>
@@ -1721,7 +1648,6 @@ function showAddStudentForm(){
     `;
     document.getElementById("entryPanel").style.display = "block";
     document.getElementById("topAddBtn").style.display = "none";
-    loadLogoInForm();
     setTimeout(() => document.getElementById("entryPanel").scrollIntoView({behavior:"smooth",block:"start"}), 50);
 }
 function editStudent(id){
@@ -1755,7 +1681,6 @@ function editStudent(id){
         setVal("exam"+i+"Year", e.year); setVal("exam"+i+"Roll", e.roll);
         setVal("exam"+i+"Reg", e.reg); setVal("exam"+i+"Gpa", e.gpa);
     }
-    loadLogoInForm();
     setTimeout(() => document.getElementById("entryPanel").scrollIntoView({behavior:"smooth",block:"start"}), 50);
 }
 function viewStudent(id){
@@ -1775,7 +1700,9 @@ function viewStudent(id){
     document.getElementById("formContainer").innerHTML = `
         <div style="border:3px double #444;padding:20px;background:#fff;font-size:13px;">
             <div style="display:flex;align-items:flex-start;gap:15px;border-bottom:2px solid #b8860b;padding-bottom:12px;margin-bottom:15px;">
-                <div style="width:90px;height:90px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;border-radius:8px;background:#fafafa;color:#b0b0b0;font-size:11px;">লোগো</div>
+                <div style="width:90px;height:90px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px dashed #c9c9c9;border-radius:8px;background:#fafafa;overflow:hidden;padding:4px;">
+                    <img src="${getLogoURL()}" style="max-width:100%;max-height:100%;object-fit:contain;" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=&quot;color:#b0b0b0;font-size:11px;&quot;>লোগো</span>';">
+                </div>
                 <div style="flex:1;text-align:center;">
                     <h2 style="font-size:20px;color:#24150c;">Bondhusoft IT Computer Training Center</h2>
                     <h3 style="font-size:18px;color:#c2185b;">বন্ধুসফট আই,টি কম্পিউটার ট্রেনিং সেন্টার</h3>
@@ -1877,7 +1804,7 @@ function val(id){const el = document.getElementById(id); return el ? el.value.tr
 function setVal(id, v){const el = document.getElementById(id); if(el) el.value = v || "";}
 function printCurrentForm(){
     const fc = document.getElementById("formContainer");
-    if(!fc || !fc.querySelector(".admission-form") && !fc.querySelector("div")){alert("⚠️ আগে ফরম খুলুন।"); return;}
+    if(!fc || !fc.innerHTML.trim()){alert("⚠️ আগে ফরম খুলুন।"); return;}
     doPrint(fc.innerHTML, "a4");
 }
 function printBlankForm(){
@@ -1888,12 +1815,6 @@ function printBlankForm(){
 function doPrint(html, mode){
     const pa = document.getElementById("printArea");
     pa.innerHTML = html;
-    let url = "";
-    try{url = JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}").logoUrl || "";}catch(e){}
-    const dl = pa.querySelector("#formLogoImg");
-    const dp = pa.querySelector("#formLogoPlaceholder");
-    if(url && dl){dl.src = url; dl.style.display = "block"; if(dp) dp.style.display = "none";}
-    else if(dl){dl.style.display = "none"; if(dp) dp.style.display = "block";}
     let styleEl = document.getElementById("printPageStyle");
     if(!styleEl){styleEl = document.createElement("style"); styleEl.id = "printPageStyle"; document.head.appendChild(styleEl);}
     if(mode === "a5") styleEl.innerHTML = `@media print { @page { size: A5 portrait; margin: 8mm; } }`;
@@ -1969,11 +1890,11 @@ function renderAttendanceEntry(){
         const prev = existing.find(a => a.studentId === s.id);
         const st = prev ? prev.status : "Present";
         const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${i+1}</td><td>${escapeHtml(s.id)}</td><td>${escapeHtml(s.nameEnglish||s.nameBangla||"-")}</td><td>${escapeHtml(s.courseName||"-")}</td><td><div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <div style="position:relative;"><input type="radio" id="att_${s.id}_P" name="att_${s.id}" value="Present" ${st==="Present"?"checked":""} onchange="updateAttSummary()" style="position:absolute;opacity:0;pointer-events:none;"><label for="att_${s.id}_P" style="display:inline-block;padding:6px 12px;border:2px solid #ddd;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#666;" onclick="this.style.background='#dcfce7';this.style.borderColor='#16a34a';this.style.color='#166534';">✅ Present</label></div>
-            <div style="position:relative;"><input type="radio" id="att_${s.id}_A" name="att_${s.id}" value="Absent" ${st==="Absent"?"checked":""} onchange="updateAttSummary()" style="position:absolute;opacity:0;pointer-events:none;"><label for="att_${s.id}_A" style="display:inline-block;padding:6px 12px;border:2px solid #ddd;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#666;">❌ Absent</label></div>
-            <div style="position:relative;"><input type="radio" id="att_${s.id}_L" name="att_${s.id}" value="Late" ${st==="Late"?"checked":""} onchange="updateAttSummary()" style="position:absolute;opacity:0;pointer-events:none;"><label for="att_${s.id}_L" style="display:inline-block;padding:6px 12px;border:2px solid #ddd;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#666;">⏰ Late</label></div>
-            <div style="position:relative;"><input type="radio" id="att_${s.id}_Lv" name="att_${s.id}" value="Leave" ${st==="Leave"?"checked":""} onchange="updateAttSummary()" style="position:absolute;opacity:0;pointer-events:none;"><label for="att_${s.id}_Lv" style="display:inline-block;padding:6px 12px;border:2px solid #ddd;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#666;">🏖 Leave</label></div>
+        tr.innerHTML = `<td>${i+1}</td><td>${escapeHtml(s.id)}</td><td>${escapeHtml(s.nameEnglish||s.nameBangla||"-")}</td><td>${escapeHtml(s.courseName||"-")}</td><td><div class="att-radio-group">
+            <div class="att-radio"><input type="radio" id="att_${s.id}_P" name="att_${s.id}" value="Present" ${st==="Present"?"checked":""} onchange="updateAttSummary()"><label for="att_${s.id}_P" class="present">✅ Present</label></div>
+            <div class="att-radio"><input type="radio" id="att_${s.id}_A" name="att_${s.id}" value="Absent" ${st==="Absent"?"checked":""} onchange="updateAttSummary()"><label for="att_${s.id}_A" class="absent">❌ Absent</label></div>
+            <div class="att-radio"><input type="radio" id="att_${s.id}_L" name="att_${s.id}" value="Late" ${st==="Late"?"checked":""} onchange="updateAttSummary()"><label for="att_${s.id}_L" class="late">⏰ Late</label></div>
+            <div class="att-radio"><input type="radio" id="att_${s.id}_Lv" name="att_${s.id}" value="Leave" ${st==="Leave"?"checked":""} onchange="updateAttSummary()"><label for="att_${s.id}_Lv" class="leave">🏖 Leave</label></div>
         </div></td>`;
         tbody.appendChild(tr);
     });
@@ -2187,7 +2108,6 @@ function showTakePaymentForm(presetStudentId){
     resetFeesView();
     document.getElementById("paymentPanel").style.display = "block";
     document.getElementById("feesDefaultView").style.display = "none";
-    editingPaymentId = null;
     document.getElementById("payReceiptNo").value = generateReceiptNo();
     document.getElementById("payDate").value = todayStr();
     const students = getStudents();
@@ -2387,35 +2307,34 @@ function showReceiptView(id){
     const address = settings.address || "গ্রামীণ ব্যাংক রোড, শোহাগী বাজার, ঈশ্বরগঞ্জ, ময়মনসিংহ";
     const newPaid = (p.prevPaid||0) + (p.amount||0);
     const newDue = Math.max(0, (p.totalFee||0) - newPaid);
-    let logoHtml = "";
-    if(settings.logoUrl) logoHtml = `<img src="${escapeHtml(settings.logoUrl)}" style="max-width:80px;max-height:80px;object-fit:contain;" onerror="this.style.display='none';">`;
+    const logoUrl = getLogoURL();
     const html = `
-        <div style="border:3px double #333;padding:20px 25px;background:#fff;max-width:620px;margin:0 auto;font-size:13px;">
-            <div style="text-align:center;border-bottom:2px solid #b8860b;padding-bottom:10px;margin-bottom:14px;">
-                ${logoHtml ? `<div style="margin-bottom:8px;">${logoHtml}</div>` : ""}
-                <h2 style="font-size:19px;color:#24150c;margin-bottom:3px;">${escapeHtml(centerName)}</h2>
-                <h3 style="font-size:15px;color:#c2185b;margin-bottom:4px;">কম্পিউটার ট্রেনিং সেন্টার</h3>
-                <p style="font-size:11.5px;color:#555;">${escapeHtml(address)}</p>
-                <p style="font-size:11.5px;color:#555;">মোবাইল: ${escapeHtml(mobile)}</p>
+        <div class="receipt-preview">
+            <div class="rc-header">
+                <img class="rc-logo" src="${escapeHtml(logoUrl)}" onerror="this.style.display='none';">
+                <h2>${escapeHtml(centerName)}</h2>
+                <h3>কম্পিউটার ট্রেনিং সেন্টার</h3>
+                <p>${escapeHtml(address)}</p>
+                <p>মোবাইল: ${escapeHtml(mobile)}</p>
             </div>
-            <div style="text-align:center;font-size:17px;font-weight:bold;color:#6a1b9a;letter-spacing:2px;margin:10px 0 14px;text-decoration:underline;">MONEY RECEIPT</div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Receipt No:</span><span><strong>${escapeHtml(p.receiptNo)}</strong></span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Date:</span><span>${escapeHtml(formatDate(p.date))}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Student Name:</span><span>${escapeHtml(p.studentName)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Student ID:</span><span>${escapeHtml(p.studentId)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Course:</span><span>${escapeHtml(p.courseName||"-")}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Batch:</span><span>${escapeHtml(p.batchNo||"-")}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Total Course Fee:</span><span>৳${formatNumber(p.totalFee)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Previously Paid:</span><span>৳${formatNumber(p.prevPaid)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Paid Now:</span><span style="color:#16834b;">৳${formatNumber(p.amount)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Total Paid:</span><span style="color:#16834b;font-weight:bold;">৳${formatNumber(newPaid)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Remaining Due:</span><span style="color:${newDue>0?'#c0392b':'#16834b'};font-weight:bold;">৳${formatNumber(newDue)}</span></div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>Method:</span><span>${escapeHtml(p.method||"Cash")}</span></div>
-            ${p.trxId ? `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #ccc;"><span>TrxID:</span><span>${escapeHtml(p.trxId)}</span></div>` : ""}
-            <div style="margin-top:12px;padding:10px 12px;background:#fff8e7;border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:15px;color:#8a6200;"><span>Amount Received:</span><span>৳${formatNumber(p.amount)}</span></div>
-            <div style="display:flex;justify-content:space-between;margin-top:38px;font-size:12px;">
-                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:20px;">Received By</div></div>
-                <div style="flex:1;text-align:center;"><div style="border-top:1px solid #333;margin-bottom:4px;padding-top:20px;">Student Signature</div></div>
+            <div class="rc-title">MONEY RECEIPT</div>
+            <div class="rc-row"><span>Receipt No:</span><span><strong>${escapeHtml(p.receiptNo)}</strong></span></div>
+            <div class="rc-row"><span>Date:</span><span>${escapeHtml(formatDate(p.date))}</span></div>
+            <div class="rc-row"><span>Student Name:</span><span>${escapeHtml(p.studentName)}</span></div>
+            <div class="rc-row"><span>Student ID:</span><span>${escapeHtml(p.studentId)}</span></div>
+            <div class="rc-row"><span>Course:</span><span>${escapeHtml(p.courseName||"-")}</span></div>
+            <div class="rc-row"><span>Batch:</span><span>${escapeHtml(p.batchNo||"-")}</span></div>
+            <div class="rc-row"><span>Total Course Fee:</span><span>৳${formatNumber(p.totalFee)}</span></div>
+            <div class="rc-row"><span>Previously Paid:</span><span>৳${formatNumber(p.prevPaid)}</span></div>
+            <div class="rc-row"><span>Paid Now:</span><span style="color:#16834b;">৳${formatNumber(p.amount)}</span></div>
+            <div class="rc-row"><span>Total Paid:</span><span style="color:#16834b;font-weight:bold;">৳${formatNumber(newPaid)}</span></div>
+            <div class="rc-row"><span>Remaining Due:</span><span style="color:${newDue>0?'#c0392b':'#16834b'};font-weight:bold;">৳${formatNumber(newDue)}</span></div>
+            <div class="rc-row"><span>Method:</span><span>${escapeHtml(p.method||"Cash")}</span></div>
+            ${p.trxId ? `<div class="rc-row"><span>TrxID:</span><span>${escapeHtml(p.trxId)}</span></div>` : ""}
+            <div class="rc-total"><span>Amount Received:</span><span>৳${formatNumber(p.amount)}</span></div>
+            <div class="rc-signatures">
+                <div class="sig"><div class="line"></div><div>Received By</div></div>
+                <div class="sig"><div class="line"></div><div>Student Signature</div></div>
             </div>
         </div>`;
     document.getElementById("receiptPreviewContainer").innerHTML = html;
@@ -2694,16 +2613,15 @@ function getCertificateHTML(c){
     const centerName = settings.centerName || "BondhuSoft IT";
     const mobile = settings.mobile || "০১৯৮১৪-৪৪৬৯৯৬";
     const address = settings.address || "গ্রামীণ ব্যাংক রোড, শোহাগী বাজার, ঈশ্বরগঞ্জ, ময়মনসিংহ";
-    let logoHtml = "";
-    if(settings.logoUrl) logoHtml = `<img src="${escapeHtml(settings.logoUrl)}" style="max-width:80px;max-height:80px;margin:0 auto 10px;display:block;object-fit:contain;" onerror="this.style.display='none';">`;
+    const logoUrl = getLogoURL();
     const courseTitle = c.courseName || "Computer Course";
     const gradeText = c.grade ? "with Grade " + c.grade : "";
     const issueDate = c.issueDate ? formatDate(c.issueDate) : "";
     const completionDate = c.completionDate ? formatDate(c.completionDate) : issueDate;
     return `
-        <div style="border:8px solid #d4a017;padding:40px 35px;background:#fffdf6;text-align:center;max-width:800px;margin:0 auto;font-family:Georgia,serif;position:relative;">
-            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);font-size:80px;color:rgba(212,160,23,0.06);font-weight:bold;pointer-events:none;letter-spacing:8px;z-index:0;">BONDHUSOFT</div>
-            ${logoHtml}
+        <div class="certificate-preview">
+            <div class="cp-watermark">BONDHUSOFT</div>
+            <img class="cp-logo" src="${escapeHtml(logoUrl)}" onerror="this.style.display='none';">
             <h1 style="color:#8a6200;font-size:28px;letter-spacing:2px;margin-bottom:4px;">${escapeHtml(centerName).toUpperCase()}</h1>
             <div style="color:#444;font-size:13px;margin-bottom:6px;">COMPUTER TRAINING CENTER</div>
             <div style="color:#444;font-size:13px;margin-bottom:6px;">${escapeHtml(address)}</div>
@@ -2753,18 +2671,13 @@ function printCertificateA4(){
     doPrint(cont.innerHTML, "a4");
 }
 
-/* ============================================================
-   ==================== REPORTS ===============================
-   ============================================================ */
-
+/* ============== REPORTS ============== */
 function resetReportsView(){
     document.getElementById("reportsDashboard").style.display = "grid";
     document.getElementById("reportViewPanel").style.display = "none";
     currentReportData = null;
     refreshReportsDashboard();
 }
-
-/* Update dashboard mini stats */
 function refreshReportsDashboard(){
     const students = getStudents();
     const payments = getPayments();
@@ -2808,8 +2721,6 @@ function refreshReportsDashboard(){
     set("rcTotalBatches", batches.length);
     set("rcTotalSeats", batches.reduce((sum,b) => sum + (parseInt(b.seats)||0), 0));
 }
-
-/* Common report header HTML */
 function getReportHeaderHTML(title, meta){
     let settings = {};
     try{settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}");}catch(e){}
@@ -2826,8 +2737,6 @@ function getReportHeaderHTML(title, meta){
         </div>
     `;
 }
-
-/* Common print footer */
 function getPrintFooterHTML(){
     const today = formatDate(todayStr());
     return `
@@ -2838,94 +2747,48 @@ function getPrintFooterHTML(){
         </div>
     `;
 }
-
-/* ========== 1. STUDENT REPORT ========== */
 function showStudentReport(){
     const students = getStudents();
-    const courses = getCourses();
-
-    if(!students.length){
-        alert("⚠️ এখনো কোনো ছাত্র যোগ করা হয়নি।");
-        return;
-    }
-
+    if(!students.length){alert("⚠️ এখনো কোনো ছাত্র যোগ করা হয়নি।"); return;}
     const total = students.length;
     const active = students.filter(s => s.status === "Active").length;
-
-    // Course-wise counts
     const courseCounts = {};
-    students.forEach(s => {
-        const cn = s.courseName || "(No Course)";
-        courseCounts[cn] = (courseCounts[cn]||0) + 1;
-    });
-
-    // Batch-wise counts
+    students.forEach(s => {const cn = s.courseName || "(No Course)"; courseCounts[cn] = (courseCounts[cn]||0) + 1;});
     const batchCounts = {};
-    students.forEach(s => {
-        const bn = s.batchNo || "(No Batch)";
-        batchCounts[bn] = (batchCounts[bn]||0) + 1;
-    });
-
+    students.forEach(s => {const bn = s.batchNo || "(No Batch)"; batchCounts[bn] = (batchCounts[bn]||0) + 1;});
     let rows = "";
     students.forEach((s,i) => {
-        rows += `
-            <tr>
-                <td class="center">${i+1}</td>
-                <td>${escapeHtml(s.id||"")}</td>
-                <td><strong>${escapeHtml(s.nameEnglish || s.nameBangla || "-")}</strong></td>
-                <td>${escapeHtml(s.fatherName || "-")}</td>
-                <td>${escapeHtml(s.phone || "-")}</td>
-                <td>${escapeHtml(s.courseName || "-")}</td>
-                <td>${escapeHtml(s.batchNo || "-")}</td>
-                <td class="center">${escapeHtml(s.status || "Active")}</td>
-            </tr>`;
+        rows += `<tr><td class="center">${i+1}</td><td>${escapeHtml(s.id||"")}</td><td><strong>${escapeHtml(s.nameEnglish || s.nameBangla || "-")}</strong></td><td>${escapeHtml(s.fatherName || "-")}</td><td>${escapeHtml(s.phone || "-")}</td><td>${escapeHtml(s.courseName || "-")}</td><td>${escapeHtml(s.batchNo || "-")}</td><td class="center">${escapeHtml(s.status || "Active")}</td></tr>`;
     });
-
     let courseRows = "";
     Object.keys(courseCounts).sort().forEach(cn => {
         const cnt = courseCounts[cn];
         const pct = total ? Math.round((cnt/total)*100) : 0;
-        courseRows += `
-            <tr>
-                <td><strong>${escapeHtml(cn)}</strong></td>
-                <td class="center">${cnt}</td>
-                <td class="center">
-                    <span class="mini-bar" style="width:${Math.max(20, pct*2)}px;"></span>${pct}%
-                </td>
-            </tr>`;
+        courseRows += `<tr><td><strong>${escapeHtml(cn)}</strong></td><td class="center">${cnt}</td><td class="center"><span class="mini-bar" style="width:${Math.max(20, pct*2)}px;"></span>${pct}%</td></tr>`;
     });
-
     let batchRows = "";
     Object.keys(batchCounts).sort().forEach(bn => {
-        batchRows += `
-            <tr>
-                <td><strong>${escapeHtml(bn)}</strong></td>
-                <td class="center">${batchCounts[bn]}</td>
-            </tr>`;
+        batchRows += `<tr><td><strong>${escapeHtml(bn)}</strong></td><td class="center">${batchCounts[bn]}</td></tr>`;
     });
-
     const content = `
         ${getReportHeaderHTML("STUDENT REPORT", "Generated: " + formatDate(todayStr()))}
         <div class="rep-summary">
-            <div class="chip chip-total">👥 Total Students: ${total}</div>
+            <div class="chip chip-total">👥 Total: ${total}</div>
             <div class="chip chip-green">✅ Active: ${active}</div>
             <div class="chip chip-blue">📚 Courses: ${Object.keys(courseCounts).length}</div>
             <div class="chip chip-orange">👥 Batches: ${Object.keys(batchCounts).length}</div>
         </div>
-
         <h3 style="color:#24150c;margin:18px 0 10px;font-size:15px;">📋 Full Student List</h3>
         <table class="rep-table">
             <thead><tr><th>#</th><th>Student ID</th><th>Name</th><th>Father's Name</th><th>Mobile</th><th>Course</th><th>Batch</th><th>Status</th></tr></thead>
             <tbody>${rows}</tbody>
         </table>
-
         <h3 style="color:#24150c;margin:22px 0 10px;font-size:15px;">📚 Course-wise Breakdown</h3>
         <table class="rep-table">
             <thead><tr><th>Course</th><th>Students</th><th>Percentage</th></tr></thead>
             <tbody>${courseRows}</tbody>
             <tfoot><tr><td>Total</td><td class="center">${total}</td><td class="center">100%</td></tr></tfoot>
         </table>
-
         <h3 style="color:#24150c;margin:22px 0 10px;font-size:15px;">👥 Batch-wise Breakdown</h3>
         <table class="rep-table">
             <thead><tr><th>Batch</th><th>Students</th></tr></thead>
@@ -2934,55 +2797,28 @@ function showStudentReport(){
         </table>
         ${getPrintFooterHTML()}
     `;
-
     currentReportData = {
         title: "Student Report",
         headers: ["#","Student ID","Name","Father's Name","Mobile","Course","Batch","Status"],
         rows: students.map((s,i) => [i+1, s.id, s.nameEnglish||s.nameBangla, s.fatherName, s.phone, s.courseName, s.batchNo, s.status])
     };
-
     showReportView(content);
 }
-
-/* ========== 2. FEE REPORT ========== */
 function showFeeReport(){
     const payments = getPayments();
     const students = getStudents();
     const courses = getCourses();
-
-    if(!payments.length && !students.length){
-        alert("⚠️ এখনো কোনো পেমেন্ট বা ছাত্র নেই।");
-        return;
-    }
-
+    if(!payments.length && !students.length){alert("⚠️ এখনো কোনো পেমেন্ট বা ছাত্র নেই।"); return;}
     let totalCol = 0;
     payments.forEach(p => totalCol += (parseFloat(p.amount)||0));
-
     let totalDue = 0;
-    students.forEach(s => {
-        const fee = getStudentTotalFee(s);
-        const paid = getStudentPaidAmount(s.id);
-        const due = fee - paid;
-        if(due > 0) totalDue += due;
-    });
-
+    students.forEach(s => {const fee = getStudentTotalFee(s); const paid = getStudentPaidAmount(s.id); const due = fee - paid; if(due > 0) totalDue += due;});
     const today = todayStr();
     const curMonth = today.slice(0,7);
     let todayCol = 0, monthCol = 0;
-    payments.forEach(p => {
-        const amt = parseFloat(p.amount)||0;
-        if(p.date === today) todayCol += amt;
-        if((p.date||"").startsWith(curMonth)) monthCol += amt;
-    });
-
-    // Course-wise fee summary
+    payments.forEach(p => {const amt = parseFloat(p.amount)||0; if(p.date === today) todayCol += amt; if((p.date||"").startsWith(curMonth)) monthCol += amt;});
     const courseSummary = {};
-    courses.forEach(c => {
-        courseSummary[c.name] = {
-            name: c.name, fee: c.fee || 0, students: 0, expected: 0, collected: 0, due: 0
-        };
-    });
-
+    courses.forEach(c => {courseSummary[c.name] = {name: c.name, fee: c.fee || 0, students: 0, expected: 0, collected: 0, due: 0};});
     students.forEach(s => {
         const cn = s.courseName || "(No Course)";
         if(!courseSummary[cn]) courseSummary[cn] = {name: cn, fee: 0, students: 0, expected: 0, collected: 0, due: 0};
@@ -2993,47 +2829,20 @@ function showFeeReport(){
         courseSummary[cn].collected += paid;
         courseSummary[cn].due += Math.max(0, fee - paid);
     });
-
     let cRows = "";
     Object.values(courseSummary).sort((a,b) => b.expected - a.expected).forEach(c => {
-        cRows += `
-            <tr>
-                <td><strong>${escapeHtml(c.name)}</strong></td>
-                <td class="center">${c.students}</td>
-                <td class="right">৳${formatNumber(c.expected)}</td>
-                <td class="right" style="color:#16834b;">৳${formatNumber(c.collected)}</td>
-                <td class="right" style="color:#c0392b;">৳${formatNumber(c.due)}</td>
-            </tr>`;
+        cRows += `<tr><td><strong>${escapeHtml(c.name)}</strong></td><td class="center">${c.students}</td><td class="right">৳${formatNumber(c.expected)}</td><td class="right" style="color:#16834b;">৳${formatNumber(c.collected)}</td><td class="right" style="color:#c0392b;">৳${formatNumber(c.due)}</td></tr>`;
     });
-
-    // Top 10 recent payments
     const recent = payments.slice().sort((a,b) => (b.date + b.createdAt).localeCompare(a.date + a.createdAt)).slice(0, 15);
     let pRows = "";
     recent.forEach(p => {
-        pRows += `
-            <tr>
-                <td>${escapeHtml(p.receiptNo||"")}</td>
-                <td>${escapeHtml(formatDate(p.date))}</td>
-                <td>${escapeHtml(p.studentName||"")}</td>
-                <td>${escapeHtml(p.courseName||"-")}</td>
-                <td class="right" style="color:#16834b;"><strong>৳${formatNumber(p.amount)}</strong></td>
-                <td>${escapeHtml(p.method||"Cash")}</td>
-            </tr>`;
+        pRows += `<tr><td>${escapeHtml(p.receiptNo||"")}</td><td>${escapeHtml(formatDate(p.date))}</td><td>${escapeHtml(p.studentName||"")}</td><td>${escapeHtml(p.courseName||"-")}</td><td class="right" style="color:#16834b;"><strong>৳${formatNumber(p.amount)}</strong></td><td>${escapeHtml(p.method||"Cash")}</td></tr>`;
     });
-
-    // Monthly collection (last 6 months)
     const monthlyStats = {};
-    payments.forEach(p => {
-        const m = (p.date||"").slice(0,7);
-        if(!m) return;
-        monthlyStats[m] = (monthlyStats[m]||0) + (parseFloat(p.amount)||0);
-    });
+    payments.forEach(p => {const m = (p.date||"").slice(0,7); if(!m) return; monthlyStats[m] = (monthlyStats[m]||0) + (parseFloat(p.amount)||0);});
     const months = Object.keys(monthlyStats).sort().reverse().slice(0, 6);
     let mRows = "";
-    months.forEach(m => {
-        mRows += `<tr><td>${escapeHtml(m)}</td><td class="right" style="color:#16834b;font-weight:bold;">৳${formatNumber(monthlyStats[m])}</td></tr>`;
-    });
-
+    months.forEach(m => {mRows += `<tr><td>${escapeHtml(m)}</td><td class="right" style="color:#16834b;font-weight:bold;">৳${formatNumber(monthlyStats[m])}</td></tr>`;});
     const content = `
         ${getReportHeaderHTML("FEE REPORT", "Generated: " + formatDate(todayStr()))}
         <div class="rep-summary">
@@ -3042,20 +2851,17 @@ function showFeeReport(){
             <div class="chip chip-blue">📅 Today: ৳${formatNumber(todayCol)}</div>
             <div class="chip chip-orange">📈 This Month: ৳${formatNumber(monthCol)}</div>
         </div>
-
         <h3 style="color:#24150c;margin:18px 0 10px;font-size:15px;">📚 Course-wise Fee Summary</h3>
         <table class="rep-table">
             <thead><tr><th>Course</th><th>Students</th><th>Expected</th><th>Collected</th><th>Due</th></tr></thead>
             <tbody>${cRows}</tbody>
             <tfoot><tr><td>Total</td><td class="center">${students.length}</td><td class="right">৳${formatNumber(students.reduce((sum,s) => sum + getStudentTotalFee(s), 0))}</td><td class="right">৳${formatNumber(totalCol)}</td><td class="right">৳${formatNumber(totalDue)}</td></tr></tfoot>
         </table>
-
         <h3 style="color:#24150c;margin:22px 0 10px;font-size:15px;">📅 Monthly Collection (Last 6 Months)</h3>
         <table class="rep-table">
             <thead><tr><th>Month</th><th>Amount</th></tr></thead>
             <tbody>${mRows || '<tr><td colspan="2" style="text-align:center;color:#999;">No data</td></tr>'}</tbody>
         </table>
-
         <h3 style="color:#24150c;margin:22px 0 10px;font-size:15px;">💵 Recent Payments (Last 15)</h3>
         <table class="rep-table">
             <thead><tr><th>Receipt</th><th>Date</th><th>Student</th><th>Course</th><th>Amount</th><th>Method</th></tr></thead>
@@ -3063,35 +2869,21 @@ function showFeeReport(){
         </table>
         ${getPrintFooterHTML()}
     `;
-
     currentReportData = {
         title: "Fee Report",
         headers: ["Course","Students","Expected","Collected","Due"],
         rows: Object.values(courseSummary).map(c => [c.name, c.students, c.expected, c.collected, c.due])
     };
-
     showReportView(content);
 }
-
-/* ========== 3. ATTENDANCE REPORT ========== */
 function showAttendanceReport(){
     const attendance = getAttendance();
-    const students = getStudents();
-
-    if(!attendance.length){
-        alert("⚠️ এখনো কোনো হাজিরা নেওয়া হয়নি।");
-        return;
-    }
-
+    if(!attendance.length){alert("⚠️ এখনো কোনো হাজিরা নেওয়া হয়নি।"); return;}
     let p=0,a=0,l=0,lv=0;
-    attendance.forEach(x => {
-        if(x.status==="Present")p++; else if(x.status==="Absent")a++; else if(x.status==="Late")l++; else if(x.status==="Leave")lv++;
-    });
+    attendance.forEach(x => {if(x.status==="Present")p++; else if(x.status==="Absent")a++; else if(x.status==="Late")l++; else if(x.status==="Leave")lv++;});
     const total = attendance.length;
     const attended = p + l;
     const avg = total ? Math.round((attended/total)*100) : 0;
-
-    // Student-wise
     const byStu = {};
     attendance.forEach(x => {
         const k = x.studentId || x.studentName;
@@ -3100,30 +2892,14 @@ function showAttendanceReport(){
         if(x.status==="Present")s.present++; else if(x.status==="Absent")s.absent++; else if(x.status==="Late")s.late++; else if(x.status==="Leave")s.leave++;
         s.total++;
     });
-
     const rows = Object.values(byStu).sort((a,b) => (a.studentId||"").localeCompare(b.studentId||""));
     let sRows = "";
     rows.forEach(s => {
         const att = s.present + s.late;
         const pct = s.total ? Math.round((att/s.total)*100) : 0;
         const color = pct>=80?"#16834b":pct>=60?"#b26a00":"#c0392b";
-        sRows += `
-            <tr>
-                <td>${escapeHtml(s.studentId||"-")}</td>
-                <td><strong>${escapeHtml(s.studentName||"-")}</strong></td>
-                <td>${escapeHtml(s.batchNo||"-")}</td>
-                <td class="center" style="color:#166534;font-weight:600;">${s.present}</td>
-                <td class="center" style="color:#991b1b;font-weight:600;">${s.absent}</td>
-                <td class="center" style="color:#92400e;font-weight:600;">${s.late}</td>
-                <td class="center" style="color:#3730a3;font-weight:600;">${s.leave}</td>
-                <td class="center"><strong>${s.total}</strong></td>
-                <td class="center">
-                    <div class="pct-bar-wrap"><div class="pct-bar" style="width:${pct}%;background:${color};"></div></div>
-                    <strong style="color:${color};">${pct}%</strong>
-                </td>
-            </tr>`;
+        sRows += `<tr><td>${escapeHtml(s.studentId||"-")}</td><td><strong>${escapeHtml(s.studentName||"-")}</strong></td><td>${escapeHtml(s.batchNo||"-")}</td><td class="center" style="color:#166534;font-weight:600;">${s.present}</td><td class="center" style="color:#991b1b;font-weight:600;">${s.absent}</td><td class="center" style="color:#92400e;font-weight:600;">${s.late}</td><td class="center" style="color:#3730a3;font-weight:600;">${s.leave}</td><td class="center"><strong>${s.total}</strong></td><td class="center"><div class="pct-bar-wrap"><div class="pct-bar" style="width:${pct}%;background:${color};"></div></div><strong style="color:${color};">${pct}%</strong></td></tr>`;
     });
-
     const content = `
         ${getReportHeaderHTML("ATTENDANCE REPORT", "Generated: " + formatDate(todayStr()))}
         <div class="rep-summary">
@@ -3134,7 +2910,6 @@ function showAttendanceReport(){
             <div class="chip chip-blue">🏖 Leave: ${lv}</div>
             <div class="chip chip-purple">📈 Avg: ${avg}%</div>
         </div>
-
         <h3 style="color:#24150c;margin:18px 0 10px;font-size:15px;">📋 Student-wise Attendance Summary</h3>
         <table class="rep-table">
             <thead><tr><th>Student ID</th><th>Name</th><th>Batch</th><th>Present</th><th>Absent</th><th>Late</th><th>Leave</th><th>Total</th><th>%</th></tr></thead>
@@ -3142,50 +2917,22 @@ function showAttendanceReport(){
         </table>
         ${getPrintFooterHTML()}
     `;
-
     currentReportData = {
         title: "Attendance Report",
         headers: ["Student ID","Name","Batch","Present","Absent","Late","Leave","Total","%"],
-        rows: rows.map(s => {
-            const att = s.present + s.late;
-            const pct = s.total ? Math.round((att/s.total)*100) : 0;
-            return [s.studentId, s.studentName, s.batchNo, s.present, s.absent, s.late, s.leave, s.total, pct+"%"];
-        })
+        rows: rows.map(s => {const att = s.present + s.late; const pct = s.total ? Math.round((att/s.total)*100) : 0; return [s.studentId, s.studentName, s.batchNo, s.present, s.absent, s.late, s.leave, s.total, pct+"%"];})
     };
-
     showReportView(content);
 }
-
-/* ========== 4. CERTIFICATE REPORT ========== */
 function showCertificateReport(){
     const certs = getCertificates();
-    if(!certs.length){
-        alert("⚠️ এখনো কোনো সার্টিফিকেট রেকর্ড নেই।");
-        return;
-    }
-
+    if(!certs.length){alert("⚠️ এখনো কোনো সার্টিফিকেট রেকর্ড নেই।"); return;}
     let pending=0, sent=0, received=0, delivered=0;
-    certs.forEach(c => {
-        if(c.status === "delivered") delivered++;
-        else if(c.status === "received") received++;
-        else if(c.status === "sent") sent++;
-        else pending++;
-    });
-
+    certs.forEach(c => {if(c.status === "delivered") delivered++; else if(c.status === "received") received++; else if(c.status === "sent") sent++; else pending++;});
     let rows = "";
     certs.sort((a,b) => (b.updatedAt||b.createdAt||"").localeCompare(a.updatedAt||a.createdAt||"")).forEach(c => {
-        const statusLabel = getCertStatusLabel(c.status);
-        rows += `
-            <tr>
-                <td><strong>${escapeHtml(c.certNo||"")}</strong></td>
-                <td>${escapeHtml(c.studentName||"")}<br><small style="color:#777;">${escapeHtml(c.studentId||"")}</small></td>
-                <td>${escapeHtml(c.courseName||"-")}</td>
-                <td>${escapeHtml(c.batchNo||"-")}</td>
-                <td class="center">${statusLabel}</td>
-                <td class="center">${escapeHtml(formatDate(c.issueDate)||"-")}</td>
-            </tr>`;
+        rows += `<tr><td><strong>${escapeHtml(c.certNo||"")}</strong></td><td>${escapeHtml(c.studentName||"")}<br><small style="color:#777;">${escapeHtml(c.studentId||"")}</small></td><td>${escapeHtml(c.courseName||"-")}</td><td>${escapeHtml(c.batchNo||"-")}</td><td class="center">${getCertStatusLabel(c.status)}</td><td class="center">${escapeHtml(formatDate(c.issueDate)||"-")}</td></tr>`;
     });
-
     const content = `
         ${getReportHeaderHTML("CERTIFICATE REPORT", "Generated: " + formatDate(todayStr()))}
         <div class="rep-summary">
@@ -3195,7 +2942,6 @@ function showCertificateReport(){
             <div class="chip chip-blue">📥 Received: ${received}</div>
             <div class="chip chip-green">🎓 Delivered: ${delivered}</div>
         </div>
-
         <h3 style="color:#24150c;margin:18px 0 10px;font-size:15px;">🏆 Certificate List</h3>
         <table class="rep-table">
             <thead><tr><th>Certificate No</th><th>Student</th><th>Course</th><th>Batch</th><th>Status</th><th>Issue Date</th></tr></thead>
@@ -3203,60 +2949,28 @@ function showCertificateReport(){
         </table>
         ${getPrintFooterHTML()}
     `;
-
     currentReportData = {
         title: "Certificate Report",
         headers: ["Certificate No","Student","Student ID","Course","Batch","Status","Issue Date"],
         rows: certs.map(c => [c.certNo, c.studentName, c.studentId, c.courseName, c.batchNo, getCertStatusLabel(c.status), c.issueDate])
     };
-
     showReportView(content);
 }
-
-/* ========== 5. COURSE-WISE REPORT ========== */
 function showCourseWiseReport(){
     const courses = getCourses();
     const students = getStudents();
     const batches = getBatches();
-
-    if(!courses.length){
-        alert("⚠️ এখনো কোনো কোর্স যোগ করা হয়নি।");
-        return;
-    }
-
+    if(!courses.length){alert("⚠️ এখনো কোনো কোর্স যোগ করা হয়নি।"); return;}
     let rows = "";
     let totalStudents = 0, totalExpected = 0, totalCollected = 0, totalDue = 0, totalBatches = 0;
-
     courses.forEach(c => {
         const cStudents = students.filter(s => s.courseName === c.name);
         const cBatches = batches.filter(b => b.course === c.name);
         let cCollected = 0, cDue = 0, cExpected = 0;
-        cStudents.forEach(s => {
-            const fee = getStudentTotalFee(s);
-            const paid = getStudentPaidAmount(s.id);
-            cExpected += fee;
-            cCollected += paid;
-            cDue += Math.max(0, fee - paid);
-        });
-        totalStudents += cStudents.length;
-        totalExpected += cExpected;
-        totalCollected += cCollected;
-        totalDue += cDue;
-        totalBatches += cBatches.length;
-
-        rows += `
-            <tr>
-                <td><strong>${escapeHtml(c.name)}</strong></td>
-                <td class="center">৳${formatNumber(c.fee||0)}</td>
-                <td>${escapeHtml(c.duration||"-")}</td>
-                <td class="center">${cStudents.length}</td>
-                <td class="center">${cBatches.length}</td>
-                <td class="right">৳${formatNumber(cExpected)}</td>
-                <td class="right" style="color:#16834b;">৳${formatNumber(cCollected)}</td>
-                <td class="right" style="color:#c0392b;">৳${formatNumber(cDue)}</td>
-            </tr>`;
+        cStudents.forEach(s => {const fee = getStudentTotalFee(s); const paid = getStudentPaidAmount(s.id); cExpected += fee; cCollected += paid; cDue += Math.max(0, fee - paid);});
+        totalStudents += cStudents.length; totalExpected += cExpected; totalCollected += cCollected; totalDue += cDue; totalBatches += cBatches.length;
+        rows += `<tr><td><strong>${escapeHtml(c.name)}</strong></td><td class="center">৳${formatNumber(c.fee||0)}</td><td>${escapeHtml(c.duration||"-")}</td><td class="center">${cStudents.length}</td><td class="center">${cBatches.length}</td><td class="right">৳${formatNumber(cExpected)}</td><td class="right" style="color:#16834b;">৳${formatNumber(cCollected)}</td><td class="right" style="color:#c0392b;">৳${formatNumber(cDue)}</td></tr>`;
     });
-
     const content = `
         ${getReportHeaderHTML("COURSE-WISE REPORT", "Generated: " + formatDate(todayStr()))}
         <div class="rep-summary">
@@ -3266,7 +2980,6 @@ function showCourseWiseReport(){
             <div class="chip chip-green">💰 Collected: ৳${formatNumber(totalCollected)}</div>
             <div class="chip chip-red">⚠️ Due: ৳${formatNumber(totalDue)}</div>
         </div>
-
         <h3 style="color:#24150c;margin:18px 0 10px;font-size:15px;">📚 Course-wise Summary</h3>
         <table class="rep-table">
             <thead><tr><th>Course</th><th>Fee</th><th>Duration</th><th>Students</th><th>Batches</th><th>Expected</th><th>Collected</th><th>Due</th></tr></thead>
@@ -3275,7 +2988,6 @@ function showCourseWiseReport(){
         </table>
         ${getPrintFooterHTML()}
     `;
-
     currentReportData = {
         title: "Course-wise Report",
         headers: ["Course","Fee","Duration","Students","Batches","Expected","Collected","Due"],
@@ -3283,67 +2995,31 @@ function showCourseWiseReport(){
             const cStudents = students.filter(s => s.courseName === c.name);
             const cBatches = batches.filter(b => b.course === c.name);
             let cCollected = 0, cDue = 0, cExpected = 0;
-            cStudents.forEach(s => {
-                const fee = getStudentTotalFee(s);
-                const paid = getStudentPaidAmount(s.id);
-                cExpected += fee; cCollected += paid; cDue += Math.max(0, fee - paid);
-            });
+            cStudents.forEach(s => {const fee = getStudentTotalFee(s); const paid = getStudentPaidAmount(s.id); cExpected += fee; cCollected += paid; cDue += Math.max(0, fee - paid);});
             return [c.name, c.fee, c.duration, cStudents.length, cBatches.length, cExpected, cCollected, cDue];
         })
     };
-
     showReportView(content);
 }
-
-/* ========== 6. BATCH-WISE REPORT ========== */
 function showBatchWiseReport(){
     const batches = getBatches();
     const students = getStudents();
     const attendance = getAttendance();
-
-    if(!batches.length){
-        alert("⚠️ এখনো কোনো ব্যাচ তৈরি করা হয়নি।");
-        return;
-    }
-
+    if(!batches.length){alert("⚠️ এখনো কোনো ব্যাচ তৈরি করা হয়নি।"); return;}
     let rows = "";
     let totalStudents = 0, totalSeats = 0, totalCollected = 0, totalDue = 0;
-
     batches.forEach(b => {
         const bStudents = students.filter(s => (s.batchNo||"") === b.batchNo);
         let bCollected = 0, bDue = 0;
-        bStudents.forEach(s => {
-            const fee = getStudentTotalFee(s);
-            const paid = getStudentPaidAmount(s.id);
-            bCollected += paid;
-            bDue += Math.max(0, fee - paid);
-        });
-
-        // Attendance for this batch
+        bStudents.forEach(s => {const fee = getStudentTotalFee(s); const paid = getStudentPaidAmount(s.id); bCollected += paid; bDue += Math.max(0, fee - paid);});
         const bAtt = attendance.filter(a => (a.batchNo||"") === b.batchNo);
         let bPresent = 0, bTotal = bAtt.length;
         bAtt.forEach(a => {if(a.status === "Present" || a.status === "Late") bPresent++;});
         const avgAtt = bTotal ? Math.round((bPresent/bTotal)*100) : 0;
         const attColor = avgAtt>=80?"#16834b":avgAtt>=60?"#b26a00":"#c0392b";
-
-        totalStudents += bStudents.length;
-        totalSeats += parseInt(b.seats) || 0;
-        totalCollected += bCollected;
-        totalDue += bDue;
-
-        rows += `
-            <tr>
-                <td><strong>${escapeHtml(b.batchNo)}</strong></td>
-                <td>${escapeHtml(b.course||"-")}</td>
-                <td>${escapeHtml(formatDate(b.startDate)||"-")}</td>
-                <td>${escapeHtml(b.trainer||"-")}</td>
-                <td class="center">${bStudents.length} / ${b.seats || 0}</td>
-                <td class="right" style="color:#16834b;">৳${formatNumber(bCollected)}</td>
-                <td class="right" style="color:#c0392b;">৳${formatNumber(bDue)}</td>
-                <td class="center"><strong style="color:${attColor};">${avgAtt}%</strong></td>
-            </tr>`;
+        totalStudents += bStudents.length; totalSeats += parseInt(b.seats) || 0; totalCollected += bCollected; totalDue += bDue;
+        rows += `<tr><td><strong>${escapeHtml(b.batchNo)}</strong></td><td>${escapeHtml(b.course||"-")}</td><td>${escapeHtml(formatDate(b.startDate)||"-")}</td><td>${escapeHtml(b.trainer||"-")}</td><td class="center">${bStudents.length} / ${b.seats || 0}</td><td class="right" style="color:#16834b;">৳${formatNumber(bCollected)}</td><td class="right" style="color:#c0392b;">৳${formatNumber(bDue)}</td><td class="center"><strong style="color:${attColor};">${avgAtt}%</strong></td></tr>`;
     });
-
     const content = `
         ${getReportHeaderHTML("BATCH-WISE REPORT", "Generated: " + formatDate(todayStr()))}
         <div class="rep-summary">
@@ -3353,7 +3029,6 @@ function showBatchWiseReport(){
             <div class="chip chip-green">💰 Collected: ৳${formatNumber(totalCollected)}</div>
             <div class="chip chip-red">⚠️ Due: ৳${formatNumber(totalDue)}</div>
         </div>
-
         <h3 style="color:#24150c;margin:18px 0 10px;font-size:15px;">👥 Batch-wise Summary</h3>
         <table class="rep-table">
             <thead><tr><th>Batch</th><th>Course</th><th>Start Date</th><th>Trainer</th><th>Students / Seats</th><th>Collected</th><th>Due</th><th>Avg Att%</th></tr></thead>
@@ -3362,18 +3037,13 @@ function showBatchWiseReport(){
         </table>
         ${getPrintFooterHTML()}
     `;
-
     currentReportData = {
         title: "Batch-wise Report",
         headers: ["Batch","Course","Start Date","Trainer","Students/Seats","Collected","Due","Avg Att%"],
         rows: batches.map(b => {
             const bStudents = students.filter(s => (s.batchNo||"") === b.batchNo);
             let bCollected = 0, bDue = 0;
-            bStudents.forEach(s => {
-                const fee = getStudentTotalFee(s);
-                const paid = getStudentPaidAmount(s.id);
-                bCollected += paid; bDue += Math.max(0, fee - paid);
-            });
+            bStudents.forEach(s => {const fee = getStudentTotalFee(s); const paid = getStudentPaidAmount(s.id); bCollected += paid; bDue += Math.max(0, fee - paid);});
             const bAtt = attendance.filter(a => (a.batchNo||"") === b.batchNo);
             let bPresent = 0;
             bAtt.forEach(a => {if(a.status === "Present" || a.status === "Late") bPresent++;});
@@ -3381,35 +3051,25 @@ function showBatchWiseReport(){
             return [b.batchNo, b.course, b.startDate, b.trainer, bStudents.length + "/" + (b.seats||0), bCollected, bDue, avgAtt+"%"];
         })
     };
-
     showReportView(content);
 }
-
-/* ========== Show Report View ========== */
 function showReportView(html){
     document.getElementById("reportsDashboard").style.display = "none";
     document.getElementById("reportViewPanel").style.display = "block";
     document.getElementById("reportViewContent").innerHTML = html;
     setTimeout(() => document.getElementById("reportViewPanel").scrollIntoView({behavior:"smooth",block:"start"}), 50);
 }
-
-/* ========== Print Current Report ========== */
 function printCurrentReport(){
-    const cont = document.getElementById("reportViewContent");
-    if(!cont) return;
+    const cont = document.getElementById("reportViewContent"); if(!cont) return;
     doPrint(cont.innerHTML, "a4");
 }
-
-/* ========== Export CSV ========== */
 function exportReportCSV(){
     if(!currentReportData){alert("⚠️ কোনো রিপোর্ট নেই।"); return;}
     const data = currentReportData;
-    let csv = "\uFEFF"; // BOM for UTF-8
+    let csv = "\uFEFF";
     csv += "# " + data.title + "\n";
     csv += "# Generated: " + formatDate(todayStr()) + "\n\n";
-    // Headers
     csv += data.headers.map(h => '"' + String(h).replace(/"/g,'""') + '"').join(",") + "\n";
-    // Rows
     data.rows.forEach(row => {
         csv += row.map(cell => '"' + String(cell === undefined || cell === null ? "" : cell).replace(/"/g,'""') + '"').join(",") + "\n";
     });
@@ -3422,50 +3082,31 @@ function exportReportCSV(){
     URL.revokeObjectURL(url);
 }
 
-/* ============================================================
-   ==================== DASHBOARD =============================
-   ============================================================ */
+/* ============== DASHBOARD ============== */
 function updateDashboard(){
     const students = getStudents();
     const payments = getPayments();
     const attendance = getAttendance();
     const certs = getCertificates();
-
     let totalCol = 0;
     payments.forEach(p => totalCol += (parseFloat(p.amount)||0));
-
     let totalDue = 0;
-    students.forEach(s => {
-        const fee = getStudentTotalFee(s);
-        const paid = getStudentPaidAmount(s.id);
-        const due = fee - paid;
-        if(due > 0) totalDue += due;
-    });
-
+    students.forEach(s => {const fee = getStudentTotalFee(s); const paid = getStudentPaidAmount(s.id); const due = fee - paid; if(due > 0) totalDue += due;});
     let delivered = 0, received = 0, sent = 0, pending = 0;
-    certs.forEach(c => {
-        if(c.status === "delivered") delivered++;
-        else if(c.status === "received") received++;
-        else if(c.status === "sent") sent++;
-        else pending++;
-    });
-
+    certs.forEach(c => {if(c.status === "delivered") delivered++; else if(c.status === "received") received++; else if(c.status === "sent") sent++; else pending++;});
     document.getElementById("dashTotalStudents").innerText = students.length;
     document.getElementById("dashTotalCollection").innerText = "৳" + formatNumber(totalCol);
     document.getElementById("dashTotalDue").innerText = "৳" + formatNumber(totalDue);
     document.getElementById("dashCertsDelivered").innerText = delivered;
-
     const breakdown = document.getElementById("dashCertsBreakdown");
     if(breakdown){
         breakdown.innerText = certs.length === 0 ? "0 total certificates" :
             `${certs.length} total • ${pending} pending • ${sent} sent • ${received} received`;
     }
-
     const rep = document.getElementById("reportTotalStudents");
     if(rep) rep.innerText = students.length;
     const repFee = document.getElementById("reportFeeCollection");
     if(repFee) repFee.innerText = "৳" + formatNumber(totalCol);
-
     if(attendance.length > 0){
         let att = 0;
         attendance.forEach(a => {if(a.status === "Present" || a.status === "Late") att++;});
@@ -3473,8 +3114,6 @@ function updateDashboard(){
         const avgEl = document.getElementById("reportAvgAttendance");
         if(avgEl) avgEl.innerText = avg + "%";
     }
-
-    // Recent Payments
     const recent = payments.slice().sort((a,b) => (b.date + b.createdAt).localeCompare(a.date + a.createdAt)).slice(0, 5);
     const rp = document.getElementById("dashRecentPayments");
     if(rp){
@@ -3489,8 +3128,6 @@ function updateDashboard(){
             rp.innerHTML = html;
         }
     }
-
-    // Certificate Status
     const cs = document.getElementById("dashCertSummary");
     if(cs){
         if(!certs.length){
@@ -3507,16 +3144,7 @@ function updateDashboard(){
     }
 }
 
-/* ---------- UTILITIES ---------- */
-function loadLogoInForm(){
-    let url = "";
-    try{url = JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}").logoUrl || "";}catch(e){}
-    const img = document.getElementById("formLogoImg");
-    const ph = document.getElementById("formLogoPlaceholder");
-    if(!img || !ph) return;
-    if(url){img.src = url; img.style.display = "block"; ph.style.display = "none";}
-    else {img.style.display = "none"; img.src = ""; ph.style.display = "block";}
-}
+/* ============== UTILITIES ============== */
 function formatDate(dateStr){
     if(!dateStr) return "";
     const p = dateStr.split("-");
@@ -3533,10 +3161,12 @@ function saveSettings(){
         address: document.getElementById("setAddress").value,
         email: document.getElementById("setEmail").value,
         website: document.getElementById("setWebsite").value,
-        logoUrl: document.getElementById("setLogoUrl").value
+        logoUrl: document.getElementById("setLogoUrl").value.trim()
     };
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(data));
     alert("✅ Settings saved.");
+    // Update header logo image if changed
+    updateHeaderLogo();
 }
 function loadSettings(){
     try{
@@ -3546,8 +3176,16 @@ function loadSettings(){
         if(d.address) document.getElementById("setAddress").value = d.address;
         if(d.email) document.getElementById("setEmail").value = d.email;
         if(d.website) document.getElementById("setWebsite").value = d.website;
-        if(d.logoUrl) document.getElementById("setLogoUrl").value = d.logoUrl;
-    }catch(e){}
+        // লোগো URL: Settings এ থাকলে সেটা, না থাকলে default
+        document.getElementById("setLogoUrl").value = d.logoUrl || DEFAULT_LOGO_URL;
+    }catch(e){
+        document.getElementById("setLogoUrl").value = DEFAULT_LOGO_URL;
+    }
+}
+function updateHeaderLogo(){
+    const img = document.getElementById("headerLogoImg");
+    if(!img) return;
+    img.src = getLogoURL();
 }
 function exportBackup(){
     const backup = {
@@ -3585,6 +3223,7 @@ function importBackup(event){
             if(data.settings) localStorage.setItem(SETTINGS_KEY, JSON.stringify(data.settings));
             renderStudents(); renderCourses(); renderBatches(); renderTrainers();
             updateDashboard(); loadSettings(); refreshCertSummary(); refreshReportsDashboard();
+            updateHeaderLogo();
             alert("✅ Backup restored!");
         }catch(err){alert("❌ Invalid backup file.");}
     };
@@ -3600,6 +3239,7 @@ document.addEventListener("DOMContentLoaded", function(){
     renderStudents(); renderCourses(); renderBatches(); renderTrainers();
     updateDashboard(); loadSettings(); refreshCourseDatalist();
     refreshFeesSummaryCards(); refreshCertSummary(); refreshReportsDashboard();
+    updateHeaderLogo();
 });
 
 </script>
